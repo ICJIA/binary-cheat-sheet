@@ -2,7 +2,7 @@
 
 # Binary Cheat Sheet
 
-A comprehensive reference guide for understanding binary numbers, their conversions, and bitwise operations in computing.
+A comprehensive, interactive guide to understanding binary numbers and their applications in computing. Built with modern web technologies and designed for both beginners and experienced developers.
 
 ## Demo
 
@@ -10,13 +10,13 @@ https://binary-cheat.netlify.app/
 
 ## Overview
 
-This cheat sheet serves as a personal reference for understanding binary concepts in computing. It covers fundamental topics including:
+This project provides a detailed exploration of binary numbers, from basic concepts to advanced applications. It includes:
 
-- Binary number representation
-- Bitwise operations
-- Binary to decimal/hex/octal conversions
-- Endianness
-- Historical context
+- Interactive code examples in JavaScript and Python
+- Visual explanations of binary operations
+- Historical context and real-world applications
+- Responsive design with dark/light mode support
+- Accessible content structure
 
 ## Technical Details
 
@@ -25,19 +25,69 @@ This cheat sheet serves as a personal reference for understanding binary concept
 - HTML5
 - Tailwind CSS (via CDN)
 - PrismJS for code highlighting
-- JavaScript
+- JavaScript (ES6+)
 
-### Browser Support
+## Getting Started
 
-- Modern browsers (Chrome, Firefox, Safari, Edge)
-- No build process required (pure HTML/CSS/JS)
+1. Clone the repository:
 
-## Status
+```bash
+git clone https://github.com/yourusername/binary-cheat-sheet.git
+```
 
-🚧 **Under Construction** 🚧
+2. Open `index.html` in your browser or serve it using a local server:
 
-This is a personal reference guide that I created to maintain a comprehensive understanding of binary concepts in computing. It's continuously being updated and improved as I learn more about these topics.
+```bash
+# Using Python
+python -m http.server 8000
+
+# Using Node.js
+npx serve
+```
+
+3. Visit `http://localhost:8000` in your browser
+
+## Project Structure
+
+```
+binary-cheat-sheet/
+├── index.html          # Main HTML file
+├── public/            # Static assets
+│   └── altair8800.jpg # Historical image
+└── README.md          # Project documentation
+```
+
+## Future Improvements
+
+### Performance
+
+- [ ] Implement Tailwind CSS purging to reduce bundle size
+- [ ] Add lazy loading for images and code examples
+- [ ] Implement service worker for offline support
+- [ ] Add resource hints for CDN resources
+
+### Accessibility
+
+- [ ] Enhance keyboard navigation
+- [ ] Add skip links for screen readers
+- [ ] Improve color contrast ratios
+- [ ] Add more ARIA roles and labels
+
+### Features
+
+- [ ] Add interactive binary calculators
+- [ ] Implement binary visualization tools
+- [ ] Add practice exercises
+- [ ] Include more historical examples
+
+### Technical
+
+- [ ] Add error boundaries for JavaScript
+- [ ] Implement proper image fallbacks
+- [ ] Add meta tags for SEO
+- [ ] Implement progressive enhancement
+- [ ] Add unit tests for JavaScript functions
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

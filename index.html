@@ -203,6 +203,115 @@
         height: 1rem;
         vertical-align: middle;
       }
+
+      /* Mobile-specific improvements */
+      @media (max-width: 767px) {
+        /* Improve touch targets */
+        button,
+        .tab-button,
+        .copy-code-button {
+          min-height: 44px;
+          min-width: 44px;
+        }
+
+        /* Adjust spacing for better readability */
+        .space-y-12 > * + * {
+          margin-top: 2rem;
+        }
+
+        /* Improve table scrolling */
+        .overflow-x-auto {
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+        }
+
+        /* Optimize code block display */
+        pre[class*="language-"] {
+          max-height: 60vh;
+          overflow-y: auto;
+        }
+
+        /* Improve tab navigation */
+        .tab-buttons {
+          display: flex;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .tab-buttons::-webkit-scrollbar {
+          display: none;
+        }
+        .tab-button {
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        /* Enhance focus states for touch */
+        *:focus-visible {
+          outline: 2px solid #3b82f6;
+          outline-offset: 2px;
+        }
+
+        /* Improve image display */
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+
+        /* Optimize list spacing */
+        ul,
+        ol {
+          padding-left: 1.5rem;
+        }
+        li {
+          margin-bottom: 0.5rem;
+        }
+
+        /* Enhance section spacing */
+        section {
+          margin-bottom: 2rem;
+        }
+
+        /* Improve header on mobile */
+        header {
+          position: sticky;
+          top: 0;
+          z-index: 50;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Optimize footer */
+        footer {
+          padding: 1rem;
+          font-size: 0.875rem;
+        }
+      }
+
+      /* Add smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Improve focus styles */
+      *:focus {
+        outline: none;
+      }
+      *:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+      }
+
+      /* Add reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
     </style>
     <script>
       tailwind.config = {
@@ -1716,33 +1825,6 @@ print(binary_to_octal(binary_string)) # Output: 0o1532
         </div>
       </section>
 
-      <section id="formatting-example" aria-labelledby="formatting-heading">
-        <div
-          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
-        >
-          <h2
-            id="formatting-heading"
-            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
-          >
-            9. Structuring for Success: Tutorial Formatting
-          </h2>
-          <p class="mb-4">
-            <strong>Why focus on formatting?</strong> Clear, consistent
-            presentation significantly improves learning and comprehension,
-            especially for technical topics. Good formatting reduces cognitive
-            load and makes information easier to find and digest.
-          </p>
-          <ul class="list-disc list-inside space-y-2 mb-4">
-            <li>Clear Sections & Headings (Organization)</li>
-            <li>Step-by-Step Instructions (Processes)</li>
-            <li>Bullet Points (Key Info)</li>
-            <li>Visual Aids (Tables, Code Blocks - Examples & Clarity)</li>
-            <li>Consistent Styling (Readability, Professionalism)</li>
-            <li>Readability & Contrast (Accessibility)</li>
-          </ul>
-        </div>
-      </section>
-
       <section id="altair" aria-labelledby="altair-heading">
         <div
           class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
@@ -1839,11 +1921,11 @@ print(binary_to_octal(binary_string)) # Output: 0o1532
                 aria-label="Copy code snippet"
               ></button>
               <pre><code class="language-plaintext">Address  Data (Binary)  Description
-0000:    00111110        MVI A,05h    ; Load 5 into accumulator
-0001:    00000101        05h          ; The number 5
-0002:    11000110        ADI 03h      ; Add 3 to accumulator
-0003:    00000011        03h          ; The number 3
-0004:    01110110        HLT          ; Stop program</code></pre>
+0000:    00111110        Load 5 into accumulator
+0001:    00000101        The number 5
+0002:    11000110        Add 3 to accumulator
+0003:    00000011        The number 3
+0004:    01110110        Stop program</code></pre>
             </div>
             <div id="altair-assembly" class="tab-content hidden">
               <button
