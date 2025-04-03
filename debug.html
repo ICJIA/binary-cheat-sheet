@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Debug Prism Error</title>
+  
+  <!-- PrismJS CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css">
+  
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+    pre { margin: 20px 0; }
+  </style>
+</head>
+<body>
+  <h1>Prism.js Debug Page</h1>
+  <p>This page tests Prism.js initialization and autoloader configuration.</p>
+  
+  <h2>Sample Code</h2>
+  <pre><code class="language-javascript">
+// Sample JavaScript code
+function helloWorld() {
+  console.log("Hello, world!");
+}
+  </code></pre>
+  
+  <pre><code class="language-z80">
+; Sample Z80 Assembly
+    ORG 0
+START:
+    LD A, 10        ; Load value 10 into A
+    LD B, 20        ; Load value 20 into B
+    ADD A, B        ; Add B to A
+    HALT            ; Stop execution
+  </code></pre>
+  
+  <!-- Load Prism core first -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  
+  <!-- Simple initialization for autoloader before loading it -->
+  <script>
+    // Initialize Prism if needed
+    if (typeof Prism === 'undefined') {
+      console.log("Prism was undefined");
+      window.Prism = { manual: true };
+    }
+    
+    // Initialize plugins container if needed
+    if (!Prism.plugins) {
+      console.log("Prism.plugins was undefined");
+      Prism.plugins = {};
+    }
+    
+    // Initialize autoloader container before loading autoloader.js
+    if (!Prism.plugins.autoloader) {
+      console.log("Prism.plugins.autoloader was undefined");
+      Prism.plugins.autoloader = {};
+    }
+    
+    // Set the languages path
+    Prism.plugins.autoloader.languages_path = "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/";
+    console.log("Set languages_path successfully");
+  </script>
+  
+  <!-- Now load the autoloader plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  
+  <!-- Load line numbers plugin -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+  
+  <!-- Verify configuration -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("DOMContentLoaded event fired");
+      console.log("Prism object:", Prism);
+      console.log("Prism.plugins:", Prism.plugins);
+      console.log("Prism.plugins.autoloader:", Prism.plugins.autoloader);
+      
+      if (Prism.plugins && Prism.plugins.autoloader) {
+        console.log("languages_path:", Prism.plugins.autoloader.languages_path);
+      }
+      
+      // Highlight everything again
+      Prism.highlightAll();
+    });
+  </script>
+</body>
+</html>

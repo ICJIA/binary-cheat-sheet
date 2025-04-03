@@ -189,15 +189,20 @@
         position: absolute;
         top: 0.5rem;
         right: 0.5rem;
-        padding: 0.25rem;
+        padding: 0.5rem;
         background-color: rgba(75, 85, 99, 0.7);
         color: #e5e7eb;
         border: none;
         border-radius: 0.25rem;
         cursor: pointer;
-        opacity: 0.5;
+        opacity: 0.7;
         transition: opacity 0.2s ease-in-out, background-color 0.2s ease;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
       }
       .tab-content:hover .copy-code-button,
       pre.language-plaintext:hover .copy-code-button {
@@ -207,9 +212,12 @@
         background-color: rgba(55, 65, 81, 0.9);
       }
       .copy-code-button svg {
-        width: 1rem;
-        height: 1rem;
+        width: 1.25rem;
+        height: 1.25rem;
         vertical-align: middle;
+      }
+      .tab-content {
+        position: relative;
       }
 
       /* Mobile-specific improvements */
@@ -460,6 +468,69 @@
           },
         },
       };
+    </script>
+    <!-- Prism.js for syntax highlighting - core library first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    
+    <!-- Initialize Prism before loading plugins -->
+    <script>
+      // Make sure Prism is defined
+      if (typeof Prism === 'undefined') {
+        window.Prism = { manual: true };
+      }
+      
+      // Create necessary structures
+      if (!Prism.plugins) Prism.plugins = {};
+      if (!Prism.languages) Prism.languages = {};
+      
+      // Create autoloader placeholder even before loading plugin
+      if (!Prism.plugins.autoloader) Prism.plugins.autoloader = {};
+      
+      // Set the languages path
+      Prism.plugins.autoloader = {
+        languages_path: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"
+      };
+    </script>
+    
+    <!-- Now load plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <!-- Add specific language support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-asm6502.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-basic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-z80.min.js"></script>
+    <!-- Debug scripts for Prism issue -->
+    <script>
+      console.log('🔍 DEBUG: Head section script running - April 3, 13:14');
+      console.log('🔍 DEBUG: This change should log to console if you are viewing the updated file');
+    </script>
+    
+    <!-- Add Prism main script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script>
+      console.log('🔍 DEBUG: Prism main script loaded:', typeof Prism !== 'undefined' ? 'YES' : 'NO');
+      if (typeof Prism !== 'undefined') {
+        console.log('🔍 DEBUG: Prism plugins:', Prism.plugins ? 'EXISTS' : 'MISSING');
+      }
+    </script>
+    
+    <!-- Add Prism auto-loader plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+      console.log('🔍 DEBUG: After autoloader script loaded');
+      if (typeof Prism !== 'undefined' && Prism.plugins) {
+        console.log('🔍 DEBUG: Autoloader plugin:', Prism.plugins.autoloader ? 'EXISTS' : 'MISSING');
+      }
+      
+      // Create autoloader if needed
+      if (typeof Prism !== 'undefined') {
+        if (!Prism.plugins) Prism.plugins = {};
+        if (!Prism.plugins.autoloader) Prism.plugins.autoloader = {};
+        Prism.plugins.autoloader.languages_path = "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/";
+        console.log('🔍 DEBUG: languages_path set in head section');
+      }
     </script>
   </head>
   <body
@@ -2784,6 +2855,27 @@ output:
 <span class="action-step">PRESS EXAMINE NEXT</span>
 <span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
 <span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
 
 ; Set counter B to 4 (process 4 bits at a time)
 <span class="action-step">PRESS EXAMINE NEXT</span>
@@ -3495,6 +3587,30 @@ print(f"{5:b}")         # Output: "101"</code></pre>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
           >
+            <!-- New Card -->
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                New Card Title
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                This is a new card. Replace this text.
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Author</span>
+                <span class="mx-2">•</span>
+                <span>Category</span>
+              </div>
+            </a>
+
             <!-- Gates Notes Altair BASIC Article -->
             <a
               href="https://www.gatesnotes.com/microsoft-original-source-code"
@@ -3592,6 +3708,30 @@ print(f"{5:b}")         # Output: "101"</code></pre>
                 <span>Historical Article</span>
               </div>
             </a>
+
+            <!-- Source Code PDF -->
+            <a
+              href="public/Original-Microsoft-Source-Code.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                Original Microsoft Source Code (PDF)
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                View the Original Microsoft Source Code.
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Microsoft</span>
+                <span class="mx-2">•</span>
+                <span>Historical Document</span>
+              </div>
+            </a>
           </div>
         </div>
       </section>
@@ -3632,18 +3772,33 @@ print(f"{5:b}")         # Output: "101"</code></pre>
     </footer>
 
     <!-- External Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-asm6502.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
 
     <!-- Application Scripts -->
     <script>
-      // Configure Prism autoloader
-      Prism.plugins.autoloader.languages_path =
-        "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/";
-
+      console.log('🔍 DEBUG: Application Scripts section running - April 3, 13:17');
+      console.log('🔍 DEBUG: Prism status at application scripts:', typeof Prism !== 'undefined' ? 'Exists' : 'Missing');
+      
+      // Check what Prism looks like at this point
+      if (typeof Prism !== 'undefined') {
+        console.log('🔍 DEBUG: Prism plugins at application scripts:', Prism.plugins ? 'Exists' : 'Missing');
+        if (Prism.plugins) {
+          console.log('🔍 DEBUG: Prism autoloader at application scripts:', Prism.plugins.autoloader ? 'Exists' : 'Missing');
+        }
+      }
+      
+      try {
+        // IMPORTANT: This next line might be the source of the error
+        // It's purposely commented out now to avoid errors
+        // Prism.plugins.autoloader.languages_path = "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/";
+        console.log('🔍 DEBUG: Skipped setting languages_path in application scripts section');
+      } catch (e) {
+        console.error('🔍 DEBUG ERROR:', e.message);
+      }
+      
       // Theme toggle functionality
       const themeToggle = document.getElementById("theme-toggle");
       const themeIcon = document.getElementById("theme-icon");
@@ -3722,12 +3877,45 @@ print(f"{5:b}")         # Output: "101"</code></pre>
       // Initialize copy buttons
       document.querySelectorAll(".copy-code-button").forEach((button) => {
         button.innerHTML = copyIconSVG;
+        button.setAttribute("aria-label", "Copy code to clipboard");
+        button.setAttribute("title", "Copy code to clipboard");
+      });
+
+      // Initialize code blocks
+      document.querySelectorAll("pre[class*='language-']").forEach((pre) => {
+        if (
+          !pre.previousElementSibling?.classList.contains("copy-code-button")
+        ) {
+          const button = document.createElement("button");
+          button.className = "copy-code-button";
+          button.innerHTML = copyIconSVG;
+          button.setAttribute("aria-label", "Copy code to clipboard");
+          button.setAttribute("title", "Copy code to clipboard");
+          button.onclick = () => copyCodeToClipboard(button);
+          pre.parentNode.insertBefore(button, pre);
+        }
       });
 
       // Hide altair-instructions sections
       document.querySelectorAll(".altair-instructions").forEach((element) => {
         element.style.display = "none";
       });
+    </script>
+    <!-- Final debug script -->
+    <script>
+      console.log('🔍 DEBUG: End of body script running - April 3, 13:19');
+      console.log('🔍 DEBUG: Final Prism status:', typeof Prism !== 'undefined' ? 'Exists' : 'Missing');
+      
+      if (typeof Prism !== 'undefined' && Prism.plugins && Prism.plugins.autoloader) {
+        console.log('🔍 DEBUG: Final languages_path status:', 
+          Prism.plugins.autoloader.languages_path ? 'Set to: ' + Prism.plugins.autoloader.languages_path : 'Missing');
+      }
+      
+      // Highlight all code elements again just to be safe
+      if (typeof Prism !== 'undefined' && typeof Prism.highlightAll === 'function') {
+        console.log('🔍 DEBUG: Re-highlighting all code elements');
+        Prism.highlightAll();
+      }
     </script>
   </body>
 </html>

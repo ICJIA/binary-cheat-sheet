@@ -1,0 +1,3857 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Binary Cheat Sheet</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/plugins/line-numbers/prism-line-numbers.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Custom scrollbar styles */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #1f2937;
+      }
+      html.light ::-webkit-scrollbar-track {
+        background: #f3f4f6;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #4b5563;
+        border-radius: 10px;
+        border: 2px solid #1f2937;
+      }
+      html.light ::-webkit-scrollbar-thumb {
+        background-color: #9ca3af;
+        border: 2px solid #f3f4f6;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #6b7280;
+      }
+      html.light ::-webkit-scrollbar-thumb:hover {
+        background-color: #6b7280;
+      }
+
+      /* PrismJS code block styles */
+      code[class*="language-"],
+      pre[class*="language-"] {
+        font-family: "Courier New", Courier, monospace;
+        border-radius: 0.375rem;
+        overflow-x: auto;
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+        word-wrap: normal;
+        line-height: 1.5;
+        -moz-tab-size: 4;
+        -o-tab-size: 4;
+        tab-size: 4;
+        -webkit-hyphens: none;
+        -moz-hyphens: none;
+        -ms-hyphens: none;
+        hyphens: none;
+        margin-top: 0;
+        margin-bottom: 0;
+        position: relative;
+        font-size: 0.875rem; /* Slightly smaller font for mobile */
+      }
+      @media (min-width: 768px) {
+        code[class*="language-"],
+        pre[class*="language-"] {
+          font-size: 1rem;
+        }
+      }
+      pre[class*="language-"] > code {
+        display: block;
+        padding: 0.75rem;
+        padding-right: 3rem; /* Reduced padding for mobile */
+      }
+      @media (min-width: 768px) {
+        pre[class*="language-"] > code {
+          padding: 1rem;
+          padding-right: 3.5rem;
+        }
+      }
+
+      /* Plaintext example styling */
+      pre.language-plaintext {
+        background-color: #374151;
+        color: #e5e7eb;
+        padding: 0.5rem;
+        white-space: pre;
+        position: relative;
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+        border-radius: 0.375rem;
+        font-size: 0.875rem;
+      }
+      @media (min-width: 768px) {
+        pre.language-plaintext {
+          padding: 0.75rem;
+          margin-top: 1rem;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+        }
+      }
+      html.light pre.language-plaintext {
+        background-color: #e5e7eb;
+        color: #1f2937;
+      }
+      /* Table styling */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+      }
+      th,
+      td {
+        border: 1px solid #4b5563;
+        padding: 0.75rem;
+        text-align: left;
+      }
+      html.light th,
+      html.light td {
+        border: 1px solid #d1d5db;
+      }
+      th {
+        background-color: #374151;
+        font-weight: 600;
+      }
+      html.light th {
+        background-color: #e5e7eb;
+      }
+
+      /* Tab Styling */
+      .code-tabs-container {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+      }
+      .tab-button {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        border-radius: 0.375rem 0.375rem 0 0;
+        border: 1px solid transparent;
+        border-bottom: none;
+        margin-right: 0.25rem;
+        transition: background-color 0.2s ease, border-color 0.2s ease;
+        background-color: #374151;
+        color: #9ca3af;
+      }
+      html.light .tab-button {
+        background-color: #e5e7eb;
+        color: #6b7280;
+      }
+      .tab-button.active {
+        background-color: #272822;
+        color: #f8f8f2;
+        font-weight: 600;
+        border-color: #4b5563;
+      }
+      html.light .tab-button.active {
+        background-color: #f8f8f2;
+        color: #374151;
+        border-color: #d1d5db;
+      }
+      .tab-content {
+        border: 1px solid #4b5563;
+        border-radius: 0 0.375rem 0.375rem 0.375rem;
+        padding: 0;
+        margin-top: -1px;
+        position: relative;
+      }
+      html.light .tab-content {
+        border: 1px solid #d1d5db;
+      }
+      .tab-content pre {
+        margin: 0 !important;
+        border-radius: 0 0 0.375rem 0.375rem !important;
+        border: none !important;
+      }
+
+      /* Copy Button Styling */
+      .copy-code-button {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.5rem;
+        background-color: rgba(75, 85, 99, 0.7);
+        color: #e5e7eb;
+        border: none;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        opacity: 0.7;
+        transition: opacity 0.2s ease-in-out, background-color 0.2s ease;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+      }
+      .tab-content:hover .copy-code-button,
+      pre.language-plaintext:hover .copy-code-button {
+        opacity: 1;
+      }
+      .copy-code-button:hover {
+        background-color: rgba(55, 65, 81, 0.9);
+      }
+      .copy-code-button svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        vertical-align: middle;
+      }
+      .tab-content {
+        position: relative;
+      }
+
+      /* Mobile-specific improvements */
+      @media (max-width: 767px) {
+        /* Improve touch targets */
+        button,
+        .tab-button,
+        .copy-code-button {
+          min-height: 44px;
+          min-width: 44px;
+        }
+
+        /* Adjust spacing for better readability */
+        .space-y-12 > * + * {
+          margin-top: 2rem;
+        }
+
+        /* Improve table scrolling */
+        .overflow-x-auto {
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: thin;
+        }
+
+        /* Optimize code block display */
+        pre[class*="language-"] {
+          max-height: 60vh;
+          overflow-y: auto;
+        }
+
+        /* Improve tab navigation */
+        .tab-buttons {
+          display: flex;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+        }
+        .tab-buttons::-webkit-scrollbar {
+          display: none;
+        }
+        .tab-button {
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+
+        /* Enhance focus states for touch */
+        *:focus-visible {
+          outline: 2px solid #3b82f6;
+          outline-offset: 2px;
+        }
+
+        /* Improve image display */
+        img {
+          max-width: 100%;
+          height: auto;
+        }
+
+        /* Optimize list spacing */
+        ul,
+        ol {
+          padding-left: 1.5rem;
+        }
+        li {
+          margin-bottom: 0.5rem;
+        }
+
+        /* Enhance section spacing */
+        section {
+          margin-bottom: 2rem;
+        }
+
+        /* Improve header on mobile */
+        header {
+          position: sticky;
+          top: 0;
+          z-index: 50;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+        }
+
+        /* Optimize footer */
+        footer {
+          padding: 1rem;
+          font-size: 0.875rem;
+        }
+      }
+
+      /* Add smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Improve focus styles */
+      *:focus {
+        outline: none;
+      }
+      *:focus-visible {
+        outline: 2px solid #3b82f6;
+        outline-offset: 2px;
+      }
+
+      /* Add reduced motion support */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* Existing styles */
+      .altair-instructions {
+        background-color: #1e2430;
+        border: 1px solid #3a4556;
+        border-radius: 4px;
+        margin-top: 1rem;
+        padding: 1rem;
+      }
+
+      .altair-instructions h4 {
+        color: #e2e8f0;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .altair-instructions ol {
+        margin: 0;
+        padding-left: 2rem;
+        color: #cbd5e1;
+      }
+
+      .altair-instructions li {
+        margin-bottom: 0.5rem;
+        font-family: "Courier New", monospace;
+      }
+
+      .altair-instructions .comment {
+        color: #94a3b8;
+        font-style: italic;
+      }
+
+      .altair-instructions .code-step {
+        color: #7dd3fc;
+        font-weight: 500;
+      }
+
+      .altair-instructions .action-step {
+        color: #22c55e;
+      }
+
+      .altair-section {
+        background-color: #1a202c;
+        border-radius: 8px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .altair-section h3 {
+        color: #e2e8f0;
+        margin-top: 0;
+        margin-bottom: 1rem;
+      }
+
+      .altair-section p {
+        color: #cbd5e1;
+        line-height: 1.6;
+      }
+
+      /* Custom styles for Altair section */
+      .altair-code {
+        background-color: #1e1e1e;
+        border-radius: 4px;
+        margin: 1rem 0;
+      }
+
+      /* Add this new CSS rule for Altair action steps */
+      .language-nasm .action-step {
+        color: #22c55e !important; /* Using Tailwind's green-500 */
+      }
+
+      .altair-steps {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+      }
+
+      .altair-steps .comment {
+        color: #6a9955;
+      }
+
+      .altair-steps .action {
+        color: #569cd6;
+      }
+
+      .altair-steps .code {
+        color: #ce9178;
+      }
+
+      .altair-steps .address {
+        color: #4ec9b0;
+      }
+
+      /* Pseudo-code highlighting for Altair steps */
+      .altair-steps .pseudo-code {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+      }
+
+      .altair-steps .pseudo-code .comment {
+        color: #6a9955;
+      }
+
+      .altair-steps .pseudo-code .action {
+        color: #569cd6;
+      }
+
+      .altair-steps .pseudo-code .code {
+        color: #ce9178;
+      }
+
+      .altair-steps .pseudo-code .address {
+        color: #4ec9b0;
+      }
+    </style>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: { sans: ["Inter", "sans-serif"] },
+            colors: {
+              "primary-light": "#ffffff",
+              "secondary-light": "#f3f4f6",
+              "text-light": "#111827",
+              "primary-dark": "#111827",
+              "secondary-dark": "#1f2937",
+              "text-dark": "#e5e7eb",
+            },
+          },
+        },
+      };
+    </script>
+    <!-- Prism.js for syntax highlighting - core library first -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    
+    <!-- Initialize Prism before loading plugins -->
+    <script>
+      // Make sure Prism is defined
+      if (typeof Prism === 'undefined') {
+        window.Prism = { manual: true };
+      }
+      
+      // Create necessary structures
+      if (!Prism.plugins) Prism.plugins = {};
+      if (!Prism.languages) Prism.languages = {};
+      
+      // Create autoloader placeholder even before loading plugin
+      if (!Prism.plugins.autoloader) Prism.plugins.autoloader = {};
+      
+      // Set the languages path
+      Prism.plugins.autoloader = {
+        languages_path: "https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"
+      };
+    </script>
+    
+    <!-- Now load plugins -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <!-- Add specific language support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-asm6502.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-basic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-z80.min.js"></script>
+  </head>
+  <body
+    class="font-sans bg-secondary-light dark:bg-secondary-dark text-text-light dark:text-text-dark transition-colors duration-300"
+  >
+    <header
+      class="bg-primary-light dark:bg-primary-dark shadow-md sticky top-0 z-10"
+    >
+      <nav
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1
+          class="text-xl md:text-2xl font-bold text-blue-600 dark:text-blue-400"
+        >
+          Binary Cheat Sheet
+        </h1>
+        <button
+          id="theme-toggle"
+          aria-label="Toggle light/dark mode"
+          class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+        >
+          <span
+            id="theme-icon"
+            class="w-6 h-6 inline-block align-middle"
+          ></span>
+        </button>
+      </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 space-y-12">
+      <section id="intro" aria-labelledby="intro-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="intro-heading"
+            class="text-2xl font-semibold mb-4 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            Introduction: Why Binary Matters
+          </h2>
+
+          <p>
+            This tutorial provides a clear, visual introduction to binary
+            numbers and their significance in computing.
+          </p>
+        </div>
+      </section>
+
+      <section id="binary-intro" aria-labelledby="binary-intro-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="binary-intro-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            1. Introduction to Binary Numbers
+          </h2>
+          <h3 class="text-xl font-medium mb-3">
+            Understanding Number Systems and the Concept of Base
+          </h3>
+          <p class="mb-4">
+            Our everyday decimal system is <strong>base-10</strong>, using ten
+            digits (0-9). The position of a digit determines its value based on
+            powers of 10 (e.g., 325 = 3×10<sup>2</sup> + 2×10<sup>1</sup> +
+            5×10<sup>0</sup>). The "base" (or radix) defines how many unique
+            symbols are used and the power associated with each position.
+          </p>
+          <p class="mb-4">
+            Binary is <strong>base-2</strong>, using only two digits (<strong
+              >0</strong
+            >
+            and <strong>1</strong>). Place values are powers of 2 (...,
+            2<sup>3</sup>, 2<sup>2</sup>, 2<sup>1</sup>, 2<sup>0</sup>).
+            <strong>Why base 2?</strong> As mentioned, it directly matches the
+            "on/off" physical states of computer circuits, making hardware
+            design simpler and more robust than trying to reliably represent ten
+            different voltage levels for a base-10 system.
+          </p>
+          <p class="mb-4">
+            Throughout this guide, we'll include code examples in JavaScript,
+            Python, and Z80 Assembly. The Z80 microprocessor (1976) was chosen
+            for its clear, educational instruction set and historical
+            significance. While modern processors are more complex, the Z80's
+            assembly language provides an excellent foundation for understanding
+            how computers work at the lowest level.
+          </p>
+
+          <div
+            class="bg-secondary-light dark:bg-secondary-dark p-4 rounded-lg mb-4"
+          >
+            <h4 class="text-lg font-semibold mb-2">Why Z80 Assembly?</h4>
+            <p class="mb-2">
+              The Z80 microprocessor, developed by Zilog in 1976, is an 8-bit
+              CPU that was widely used in early personal computers, game
+              consoles, and industrial applications. While it's an older
+              architecture, it's particularly well-suited for educational
+              purposes because:
+            </p>
+            <ul class="list-disc list-inside pl-4 mb-2">
+              <li>
+                Its instruction set is clean and logical, making it easier to
+                understand fundamental computing concepts
+              </li>
+              <li>
+                It has a manageable number of registers (A, B, C, D, E, H, L)
+                and simple addressing modes
+              </li>
+              <li>
+                It uses 8-bit operations which are perfect for learning binary
+                concepts
+              </li>
+              <li>
+                Many early computers (like the ZX Spectrum, TRS-80, and MSX)
+                used the Z80, making it historically significant
+              </li>
+            </ul>
+          </div>
+
+          <div
+            class="bg-secondary-light dark:bg-secondary-dark p-4 rounded-lg mb-4"
+          >
+            <h4 class="text-lg font-semibold mb-2">
+              The Altair 8800 Connection
+            </h4>
+            <p class="mb-2">
+              The Altair 8800, released in 1975, was one of the first
+              commercially successful personal computers. While it used the
+              Intel 8080 processor (which the Z80 was designed to be compatible
+              with), it's included in our examples because:
+            </p>
+            <ul class="list-disc list-inside pl-4 mb-2">
+              <li>
+                It provides a clear example of how computers work at the binary
+                level
+              </li>
+              <li>
+                Its front-panel switches and LEDs make binary concepts tangible
+              </li>
+              <li>
+                It represents a crucial point in computing history where
+                programming was done directly in machine language
+              </li>
+              <li>
+                It helps bridge the gap between abstract binary concepts and
+                real-world computer architecture
+              </li>
+            </ul>
+          </div>
+
+          <p class="mb-4">
+            By studying these older architectures, we gain a deeper
+            understanding of fundamental computing concepts that remain relevant
+            today, even in modern 64-bit processors. The principles of binary
+            arithmetic, memory addressing, and CPU operations are universal, and
+            learning them through simpler architectures makes the concepts more
+            accessible.
+          </p>
+
+          <div class="code-tabs-container">
+            <h4 class="text-lg font-semibold mb-2">
+              Code Example: Number Representation
+            </h4>
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'num-rep-js')"
+              >
+                JavaScript
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'num-rep-py')"
+              >
+                Python
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'num-rep-z80')"
+              >
+                Assembly (Z80)
+              </button>
+            </div>
+            <div id="num-rep-js" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-javascript">// JavaScript: Representing numbers and basic conversion
+let decimalNum = 10;
+let binaryLiteral = 0b1010; // Binary literal prefix 0b
+let octalLiteral = 0o12;   // Octal literal prefix 0o
+let hexLiteral = 0xA;     // Hex literal prefix 0x
+
+console.log(decimalNum);        // Output: 10
+console.log(binaryLiteral);     // Output: 10
+console.log(octalLiteral);      // Output: 10
+console.log(hexLiteral);        // Output: 10
+
+// Convert decimal to binary string
+console.log(decimalNum.toString(2)); // Output: "1010"
+console.log((5).toString(2));        // Output: "101"</code></pre>
+            </div>
+            <div id="num-rep-py" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-python"># Python: Representing numbers and basic conversion
+decimal_num = 10
+binary_literal = 0b1010 # Binary literal prefix 0b
+octal_literal = 0o12   # Octal literal prefix 0o
+hex_literal = 0xA     # Hex literal prefix 0x
+
+print(decimal_num)      # Output: 10
+print(binary_literal)   # Output: 10
+print(octal_literal)    # Output: 10
+print(hex_literal)      # Output: 10
+
+# Convert decimal to binary string
+print(bin(decimal_num)) # Output: "0b1010" (includes prefix)
+print(f"{decimal_num:b}") # Output: "1010" (using f-string formatting)
+print(f"{5:b}")         # Output: "101"</code></pre>
+            </div>
+            <div id="num-rep-z80" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Z80 Assembly: Number representation
+; Note: Z80 uses 8-bit and 16-bit registers
+; A, B, C, D, E, H, L are 8-bit registers
+; BC, DE, HL, SP, IX, IY are 16-bit register pairs
+
+    ; Load immediate values into registers
+    LD A, 10      ; Load decimal 10 (0Ah) into accumulator
+    LD B, 0Ah     ; Load hex 10 into register B
+    LD C, 0b1010  ; Load binary 10 into register C
+
+    ; Convert decimal to binary (stored in A)
+    LD A, 5       ; Load 5 into accumulator
+    ; Binary representation: 00000101
+
+    ; Note: Z80 doesn't have direct binary literals
+    ; We use hex or decimal and convert mentally
+    ; Common hex values to remember:
+    ; 0x0 = 0000, 0x1 = 0001, 0x2 = 0010, etc.</code></pre>
+              <div class="altair-step-by-step">
+                <h4>Altair Step-by-Step Instructions:</h4>
+                <ol>
+                  <li class="comment">; Initialize the system</li>
+                  <li>
+                    <span class="action-step">PRESS RESET</span> to clear all
+                    registers
+                  </li>
+
+                  <li class="comment">; Load decimal 10 into accumulator</li>
+                  <li>
+                    <span class="action-step">SET ADDRESS SWITCHES</span> to
+                    0000000000000000
+                  </li>
+                  <li><span class="action-step">PRESS EXAMINE</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00111110 (3E hex - LD A instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001010 (0A hex - value 10)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Load hex 10 into register B</li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00000110 (06 hex - LD B instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001010 (0A hex - value 10)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Load binary 10 into register C</li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001110 (0E hex - LD C instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001010 (0A hex - value 10)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Load 5 into accumulator</li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00111110 (3E hex - LD A instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00000101 (05 hex - value 5)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Run the program</li>
+                  <li><span class="action-step">PRESS RESET</span></li>
+                  <li><span class="action-step">PRESS RUN</span></li>
+
+                  <li class="comment">; After execution:</li>
+                  <li>- Accumulator (A) will contain 00000101 (5)</li>
+                  <li>- Register B will contain 00001010 (10)</li>
+                  <li>- Register C will contain 00001010 (10)</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Visualizing Binary as "On" and "Off" States
+          </h3>
+          <p class="mb-4">
+            The core reason computers use binary is its direct mapping to
+            physical reality. The two digits, 0 and 1, perfectly represent the
+            two stable states of an electronic switch: "off" (no current/low
+            voltage) and "on" (current flows/high voltage). This simplicity
+            makes building reliable and fast processing units (CPUs) and memory
+            feasible.
+          </p>
+          <div
+            class="flex space-x-4 my-4 justify-center items-center p-4 bg-secondary-light dark:bg-secondary-dark rounded-md"
+          >
+            <div class="text-center">
+              <span class="text-4xl">⚫</span>
+              <p class="mt-1">0 (Off / Low)</p>
+            </div>
+            <div class="text-center">
+              <span class="text-4xl">💡</span>
+              <p class="mt-1">1 (On / High)</p>
+            </div>
+          </div>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Relating Binary to Decimal Numbers
+          </h3>
+          <p class="mb-4">
+            Counting works similarly, but you "run out" of digits much faster:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-1">
+            <li>
+              Decimal <strong>0</strong> = Binary
+              <code class="language-text">0</code>
+            </li>
+            <li>
+              Decimal <strong>1</strong> = Binary
+              <code class="language-text">1</code>
+            </li>
+            <li>
+              Decimal <strong>2</strong> = Binary
+              <code class="language-text">10</code> (ran out of digits, carry
+              over the 1)
+            </li>
+            <li>
+              Decimal <strong>3</strong> = Binary
+              <code class="language-text">11</code>
+            </li>
+            <li>
+              Decimal <strong>4</strong> = Binary
+              <code class="language-text">100</code> (carry over again)
+            </li>
+          </ul>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Decimal to Binary Representation
+          </h3>
+          <p class="mb-4">
+            To represent a decimal number in binary, find the combination of
+            powers of 2 that sum up to that number. For decimal
+            <strong>5</strong>:
+          </p>
+          <ol class="list-decimal list-inside mb-4 pl-4 space-y-2">
+            <li>
+              Largest power of 2 ≤ 5 is <strong>4</strong> (2<sup>2</sup>). Need
+              a '1' in the 2<sup>2</sup> place. Remainder = 1.
+            </li>
+            <li>
+              Next power is <strong>2</strong> (2<sup>1</sup>). 2 > 1. Need a
+              '0' in the 2<sup>1</sup> place. Remainder = 1.
+            </li>
+            <li>
+              Next power is <strong>1</strong> (2<sup>0</sup>). 1 ≤ 1. Need a
+              '1' in the 2<sup>0</sup> place. Remainder = 0.
+            </li>
+          </ol>
+          <p class="mb-4">
+            Result: Decimal 5 = Binary
+            <code class="language-text">101</code> (1*4 + 0*2 + 1*1 = 5).
+          </p>
+          <div
+            class="my-4 p-4 bg-secondary-light dark:bg-secondary-dark rounded-md overflow-x-auto"
+          >
+            <p class="font-semibold mb-2">Decimal 5 = Binary 101</p>
+            <table class="min-w-full text-center">
+              <thead>
+                <tr>
+                  <th>Binary Digit</th>
+                  <th>1</th>
+                  <th>0</th>
+                  <th>1</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Power of 2</td>
+                  <td>2<sup>2</sup></td>
+                  <td>2<sup>1</sup></td>
+                  <td>2<sup>0</sup></td>
+                </tr>
+                <tr>
+                  <td>Decimal Value</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Contribution</td>
+                  <td>1×4=<strong>4</strong></td>
+                  <td>0×2=<strong>0</strong></td>
+                  <td>1×1=<strong>1</strong></td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="text-right font-semibold pt-2">
+                    Total: 4 + 0 + 1 = 5
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="bits-place-value" aria-labelledby="bits-place-value-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="bits-place-value-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            2. Digits: Bits and Their Place Value
+          </h2>
+          <h3 class="text-xl font-medium mb-3">
+            Defining "Bit" and Its Significance
+          </h3>
+          <p class="mb-4">
+            A <strong>"bit"</strong> (short for binary digit) is the most basic
+            unit of information in computing, representing a single 0 or 1.
+            <strong>Why group them?</strong> A single bit doesn't convey much
+            information (only two possibilities). By grouping bits, we can
+            represent more complex data. A common grouping is a
+            <strong>"byte,"</strong> which consists of <strong>8 bits</strong>.
+          </p>
+          <p class="mb-4">
+            <strong>Why 8 bits in a byte?</strong> This became a de facto
+            standard largely due to early hardware like the popular Intel 8080
+            processor (used in the Altair 8800) which had an 8-bit architecture.
+            An 8-bit byte can represent 2<sup>8</sup> = 256 different values (0
+            to 255), which was sufficient to represent characters (like letters
+            A-Z, numbers 0-9, punctuation via ASCII encoding), basic
+            instructions, and other small data units efficiently.
+          </p>
+          <p class="mb-4">
+            Bytes (and multiples like Kilobytes (KB), Megabytes (MB), Gigabytes
+            (GB)) are the standard units for measuring file sizes, memory
+            capacity, and data transfer rates.
+          </p>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Place Values in Binary (Powers of 2)
+          </h3>
+          <p class="mb-4">
+            Just like decimal, binary uses place value, but with powers of 2.
+            The rightmost bit is the 2<sup>0</sup> (1s) place, the next is 2<sup
+              >1</sup
+            >
+            (2s), then 2<sup>2</sup> (4s), and so on.
+          </p>
+          <div
+            class="my-4 p-4 bg-secondary-light dark:bg-secondary-dark rounded-md overflow-x-auto"
+          >
+            <p class="font-semibold mb-2 text-center">Binary Place Values</p>
+            <table class="min-w-full text-center">
+              <thead>
+                <tr>
+                  <th>...</th>
+                  <th>Position 4 (2<sup>4</sup>)</th>
+                  <th>Position 3 (2<sup>3</sup>)</th>
+                  <th>Position 2 (2<sup>2</sup>)</th>
+                  <th>Position 1 (2<sup>1</sup>)</th>
+                  <th>Position 0 (2<sup>0</sup>) (LSB)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Value</td>
+                  <td>... 16</td>
+                  <td>8</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Bit Contribution Example
+          </h3>
+          <p class="mb-4">
+            To find the decimal value of a binary number, sum the place values
+            where a '1' appears. For binary
+            <code class="language-text">10110</code>:
+          </p>
+          <div
+            class="my-4 p-4 bg-secondary-light dark:bg-secondary-dark rounded-md overflow-x-auto"
+          >
+            <p class="font-semibold mb-2">
+              Converting <code class="language-text">10110</code>
+            </p>
+            <table class="min-w-full text-center">
+              <thead>
+                <tr>
+                  <th>Bit</th>
+                  <th>1</th>
+                  <th>0</th>
+                  <th>1</th>
+                  <th>1</th>
+                  <th>0</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Place Value</td>
+                  <td>16</td>
+                  <td>8</td>
+                  <td>4</td>
+                  <td>2</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Contribution</td>
+                  <td>1×16=<strong>16</strong></td>
+                  <td>0×8=<strong>0</strong></td>
+                  <td>1×4=<strong>4</strong></td>
+                  <td>1×2=<strong>2</strong></td>
+                  <td>0×1=<strong>0</strong></td>
+                </tr>
+                <tr>
+                  <td colspan="6" class="text-right font-semibold pt-2">
+                    Total: 16 + 0 + 4 + 2 + 0 = <strong>22</strong>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="code-tabs-container">
+            <h4 class="text-lg font-semibold mb-2">
+              Code Example: Checking a Specific Bit
+            </h4>
+            <p class="mb-2 text-sm">
+              <strong>Why check specific bits?</strong> Often used in low-level
+              programming, hardware interaction, or when using bit flags (where
+              each bit in a byte/integer represents a specific boolean option or
+              status). This example checks if the bit representing '2' is set.
+            </p>
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'check-bit-js')"
+              >
+                JavaScript
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'check-bit-py')"
+              >
+                Python
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'check-bit-z80')"
+              >
+                Assembly (Z80)
+              </button>
+            </div>
+            <div id="check-bit-js" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-javascript">// JavaScript: Check if the 2nd bit (position 1, value 2^1=2) is set
+let number = 5; // Binary: 0101
+let bitPosition = 1; // Check the bit at index 1 (0-indexed from right)
+
+// Create a mask: Shift 1 left by 'bitPosition' places (1 << 1 -> 0010)
+let mask = 1 &lt;&lt; bitPosition;
+
+// Use bitwise AND. If the result is non-zero, the bit was set.
+let isSet = (number &amp; mask) !== 0;
+
+console.log(`Number: ${number} (${number.toString(2).padStart(4, '0')})`);
+console.log(`Is bit at pos ${bitPosition} set? ${isSet}`); // Output: false
+
+number = 7; // Binary: 0111
+isSet = (number &amp; mask) !== 0;
+console.log(`\nNumber: ${number} (${number.toString(2).padStart(4, '0')})`);
+console.log(`Is bit at pos ${bitPosition} set? ${isSet}`); // Output: true</code></pre>
+            </div>
+            <div id="check-bit-py" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-python"># Python: Check if the 2nd bit (position 1, value 2^1=2) is set
+number = 5 # Binary: 0b0101
+bit_position = 1 # Check the bit at index 1 (0-indexed from right)
+
+# Create a mask: Shift 1 left by 'bit_position' places (1 << 1 -> 0b0010)
+mask = 1 &lt;&lt; bit_position
+
+# Use bitwise AND. If the result is non-zero, the bit was set.
+is_set = (number &amp; mask) != 0
+
+print(f"Number: {number} ({number:04b})")
+print(f"Is bit at pos {bit_position} set? {is_set}") # Output: False
+
+number = 7 # Binary: 0b0111
+is_set = (number &amp; mask) != 0
+print(f"\nNumber: {number} ({number:04b})")
+print(f"Is bit at pos {bit_position} set? {is_set}") # Output: True</code></pre>
+            </div>
+            <div id="check-bit-z80" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Z80 Assembly: Check if a specific bit is set
+; Load test value into A (5 = 00000101)
+    LD A, 5       ; A = 00000101
+    LD B, 1       ; B = bit position to check (0-based from right)
+
+; Create mask by shifting 1 left by bit position
+    LD C, 1       ; C = 00000001
+    LD D, B       ; D = bit position
+    SLA C         ; Shift left by bit position (C = 00000010)
+
+; Test bit using AND
+    AND C         ; AND with mask
+    JR NZ, bit_set ; Jump if result is non-zero (bit was set)
+    ; Bit was not set
+    HALT          ; Stop program
+
+bit_set:
+    ; Bit was set
+    HALT          ; Stop program</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="lsb-msb-endian" aria-labelledby="lsb-msb-endian-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="lsb-msb-endian-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            3. Bit Significance and Byte Order: LSB, MSB, and Endianness
+          </h2>
+          <h3 class="text-xl font-medium mb-3">LSB and MSB</h3>
+          <p class="mb-4">
+            Within a binary number, bits have different significance:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-2">
+            <li>
+              <strong>LSB (Least Significant Bit):</strong> The rightmost bit
+              (2<sup>0</sup> place). Changing it has the smallest effect on the
+              number's value.
+            </li>
+            <li>
+              <strong>MSB (Most Significant Bit):</strong> The leftmost bit
+              (highest power of 2 place). Changing it has the largest effect. In
+              signed numbers, the MSB often indicates the sign (0=positive,
+              1=negative in Two's Complement).
+            </li>
+          </ul>
+          <p class="mb-2">Byte <code class="language-text">10110101</code>:</p>
+          <pre
+            class="language-plaintext"
+          ><code>MSB --> 1 0 1 1 0 1 0 1 <-- LSB</code></pre>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Endianness: Why Does Byte Order Matter?
+          </h3>
+          <p class="mb-4">
+            When numbers (like a 32-bit integer) occupy multiple bytes in
+            memory, the processor needs a consistent way to order those bytes.
+            This order is <strong>endianness</strong>.
+            <strong>Why does it exist?</strong> It stems from different
+            historical CPU design choices. There's no single "correct" way, just
+            different conventions:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-2">
+            <li>
+              <strong>Little-Endian:</strong> Stores the Least Significant Byte
+              (LSB) at the lowest memory address. Think "Little end first". This
+              is used by Intel/AMD x86/x64 processors. Some arithmetic
+              operations (like addition on multi-byte numbers) can sometimes be
+              implemented slightly more easily this way.
+            </li>
+            <li>
+              <strong>Big-Endian:</strong> Stores the Most Significant Byte
+              (MSB) at the lowest memory address. Think "Big end first". This is
+              often called "network byte order" because standard internet
+              protocols (like IP, TCP, UDP) mandate big-endian. It can feel more
+              natural to read for humans, similar to how we write numbers. Used
+              by older architectures (Motorola 68k, SPARC) and some modern ones
+              (like IBM mainframes).
+            </li>
+          </ul>
+          <p class="mt-4">
+            <strong>Why care?</strong> If you read binary data (like from a file
+            or network socket) created on a system with one endianness and try
+            to interpret it on a system with different endianness without
+            conversion, you'll get incorrect values! This is a common source of
+            bugs in networking and cross-platform development.
+          </p>
+
+          <div class="code-tabs-container">
+            <h4 class="text-lg font-semibold mb-2">
+              Code Example: Endianness & Byte Swapping
+            </h4>
+            <p class="mb-2 text-sm">
+              Checking system endianness and performing byte swaps (needed when
+              converting between endian formats).
+            </p>
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'endian-js')"
+              >
+                JavaScript
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'endian-py')"
+              >
+                Python
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'endian-z80')"
+              >
+                Assembly (Z80)
+              </button>
+            </div>
+            <div id="endian-js" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-javascript">// JavaScript: Checking Endianness using TypedArrays
+const buffer = new ArrayBuffer(2);
+const view16 = new Uint16Array(buffer);
+const view8 = new Uint8Array(buffer);
+view16[0] = 0x1234; // Write 16-bit value (MSB=12, LSB=34)
+
+// Read the first byte stored in memory
+let systemEndianness = (view8[0] === 0x34) ? 'Little-Endian' : 'Big-Endian';
+console.log(`System seems to be: ${systemEndianness}`);
+
+// Manual Byte Swap (16-bit: 0xABCD -> 0xCDAB)
+let originalValue = 0xABCD;
+let lsb = originalValue &amp; 0x00FF; // Extract LSB (CD)
+let msb = (originalValue &amp; 0xFF00) >> 8; // Extract MSB (AB)
+let swappedValue = (lsb &lt;&lt; 8) | msb; // Combine swapped (CD then AB)
+console.log(`Original: 0x${originalValue.toString(16).toUpperCase()}`);
+console.log(`Swapped:  0x${swappedValue.toString(16).toUpperCase()}`);</code></pre>
+            </div>
+            <div id="endian-py" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-python"># Python: Checking Endianness and Swapping
+import sys
+import struct
+
+# 1. Check System Endianness
+system_endianness = sys.byteorder
+print(f"System is: {system_endianness}-endian")
+
+# 2. Manual Byte Swap (16-bit: 0xABCD -> 0xCDAB)
+original_value = 0xABCD
+lsb = original_value &amp; 0x00FF       # Extract LSB (CD)
+msb = (original_value &amp; 0xFF00) >> 8 # Extract MSB (AB)
+swapped_value = (lsb &lt;&lt; 8) | msb   # Combine swapped (CD then AB)
+print(f"Original: {original_value:#06X}")
+print(f"Swapped:  {swapped_value:#06X}")
+
+# 3. Using 'struct' for packing/unpacking (preferred method)
+# '>' = Big-endian, '<' = Little-endian, 'H' = Unsigned Short (16-bit)
+value_to_pack = 0x1234
+big_endian_bytes = struct.pack('>H', value_to_pack)
+little_endian_bytes = struct.pack('<H', value_to_pack)
+print(f"\nValue: {value_to_pack:#X}")
+print(f"Packed Big-Endian:    {big_endian_bytes.hex()}")    # '1234'
+print(f"Packed Little-Endian: {little_endian_bytes.hex()}") # '3412'
+
+# Unpack bytes assuming a specific endianness
+packed_data = b'\x34\x12' # Bytes representing 0x1234 in Little-Endian
+unpacked_little = struct.unpack('<H', packed_data)[0]
+unpacked_big = struct.unpack('>H', packed_data)[0] # Interprets \x34\x12 as Big-Endian
+print(f"\nPacked data: {packed_data.hex()}")
+print(f"Unpacked as Little-Endian: {unpacked_little:#X}") # 0x1234
+print(f"Unpacked as Big-Endian:    {unpacked_big:#X}")    # 0x3412</code></pre>
+            </div>
+            <div id="endian-z80" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Z80 Assembly: Byte swapping and endianness
+; Note: Z80 is little-endian by default
+
+; Example: Swap bytes in a 16-bit value (0xABCD -> 0xCDAB)
+    LD HL, 0xABCD ; Load 16-bit value into HL register pair
+    LD A, H       ; Save high byte (AB) in A
+    LD H, L       ; Move low byte (CD) to high position
+    LD L, A       ; Move saved high byte (AB) to low position
+    ; Now HL = 0xCDAB
+
+; Example: Working with endianness in memory
+    LD HL, data   ; Point to data in memory
+    LD A, (HL)    ; Load first byte (little-endian)
+    INC HL        ; Move to next byte
+    LD B, (HL)    ; Load second byte
+    ; A contains low byte, B contains high byte
+
+; Data in memory (little-endian)
+data:
+    DB 0x34       ; Low byte
+    DB 0x12       ; High byte
+    ; Represents 0x1234 in memory</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="bitwise-ops" aria-labelledby="bitwise-ops-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="bitwise-ops-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            4. The Power of Manipulation: Bitwise Operations
+          </h2>
+          <h3 class="text-xl font-medium mb-3">Introduction</h3>
+          <p class="mb-4">
+            Bitwise operators work directly on the binary representations of
+            numbers. <strong>Why use them?</strong> They are extremely fast
+            (often single CPU instructions) and essential for low-level tasks
+            like hardware control, data compression, encryption algorithms,
+            graphics rendering, and performance optimization. They allow precise
+            control over individual bits.
+          </p>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Detailed Explanations and Examples
+          </h3>
+
+          <div
+            class="mb-6 p-4 border border-gray-300 dark:border-gray-600 rounded-md"
+          >
+            <h4 class="text-lg font-semibold mb-2">AND (<code>&amp;</code>)</h4>
+            <p class="mb-2">
+              Result bit is 1 only if <strong>both</strong> input bits are 1.
+              <strong>Use Cases:</strong> Often used for "masking" – selecting
+              specific bits (by ANDing with a mask where only desired bits are
+              1) or checking if a specific bit (a "flag") is set.
+            </p>
+            <pre class="language-plaintext"><code>  0101 (5)  // Input A
+&amp; 0011 (3)  // Input B (Mask)
+------
+  0001 (1)  // Result</code></pre>
+            <div class="code-tabs-container">
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'and-js')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'and-py')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'and-z80')"
+                >
+                  Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'and-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
+              </div>
+              <div id="and-js" class="tab-content">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">let a = 5;
+let b = 3;
+console.log(a & b); // Output: 1</code></pre>
+              </div>
+              <div id="and-py" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python">a = 5
+b = 3
+print(a & b) # Output: 1</code></pre>
+              </div>
+              <div id="and-z80" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Z80 Assembly: AND operation
+; AND performs bitwise AND between A and operand
+; Result is stored in A
+
+    ; Load values into registers
+    LD A, 5       ; A = 00000101
+    LD B, 3       ; B = 00000011
+
+    ; Perform AND operation
+    AND B         ; A = A AND B
+    ; Result: A = 00000001 (1)</code></pre>
+              </div>
+              <div id="and-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; AND operation (5 AND 3 = 1)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load first value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform AND with second value (3)
+<span class="action-step">SET DATA SWITCHES: 10100000 (A0 hex) - ANA instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mb-6 p-4 border border-gray-300 dark:border-gray-600 rounded-md"
+          >
+            <h4 class="text-lg font-semibold mb-2">OR (<code>|</code>)</h4>
+            <p class="mb-2">
+              Result bit is 1 if <strong>at least one</strong> input bit is 1.
+              <strong>Use Cases:</strong> Commonly used to "set" specific bits
+              or flags to 1 (by ORing with a mask where the desired bits are 1).
+            </p>
+            <pre class="language-plaintext"><code>  0101 (5)  // Input A
+| 0011 (3)  // Input B (Mask)
+------
+  0111 (7)  // Result</code></pre>
+            <div class="code-tabs-container">
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'or-js')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'or-py')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'or-z80')"
+                >
+                  Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'or-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
+              </div>
+              <div id="or-js" class="tab-content">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">let a = 5;
+let b = 3;
+console.log(a | b); // Output: 7</code></pre>
+              </div>
+              <div id="or-py" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python">a = 5
+b = 3
+print(a | b) # Output: 7</code></pre>
+              </div>
+              <div id="or-z80" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Z80 Assembly: OR operation
+; OR performs bitwise OR between A and operand
+; Result is stored in A
+
+    ; Load values into registers
+    LD A, 5       ; A = 00000101
+    LD B, 3       ; B = 00000011
+
+    ; Perform OR operation
+    OR B          ; A = A OR B
+    ; Result: A = 00000111 (7)
+
+    ; Common uses:
+    ; 1. Setting bits (OR with 1 sets bit, OR with 0 keeps bit)
+    LD A, 0x42    ; A = 01000010
+    OR 0x01       ; Set bit 0: A = 01000011
+
+    ; 2. Combining flags
+    LD A, 0x01    ; Flag 1 set
+    OR 0x02       ; Set flag 2: A = 0x03</code></pre>
+              </div>
+              <div id="or-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; OR operation (5 OR 3 = 7)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load first value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform OR with second value (3)
+<span class="action-step">SET DATA SWITCHES: 10110110 (B6 hex) - ORA instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mb-6 p-4 border border-gray-300 dark:border-gray-600 rounded-md"
+          >
+            <h4 class="text-lg font-semibold mb-2">NOT (<code>~</code>)</h4>
+            <p class="mb-2">
+              Inverts every bit (0→1, 1→0).
+              <strong>Why the weird result (-x - 1)?</strong> It operates on the
+              full integer representation (e.g., 32 bits) using Two's Complement
+              for negative numbers. It's less commonly used directly than other
+              operators but is part of boolean algebra principles.
+            </p>
+            <pre
+              class="language-plaintext"
+            ><code>~ 0101 (5) = ...11111010 (-6 in Two's Complement)</code></pre>
+            <div class="code-tabs-container">
+              <p class="mb-2 text-sm">
+                Note: <code>~x</code> is equivalent to <code>-x - 1</code>.
+              </p>
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'not-js')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'not-py')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'not-z80')"
+                >
+                  Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'not-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
+              </div>
+              <div id="not-js" class="tab-content">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">let a = 5;
+console.log(~a); // Output: -6</code></pre>
+              </div>
+              <div id="not-py" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python">a = 5
+print(~a) # Output: -6</code></pre>
+              </div>
+              <div id="not-z80" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Z80 Assembly: NOT operation
+; CPL performs bitwise NOT on accumulator A
+; Result is stored in A
+
+    ; Load value into accumulator
+    LD A, 5       ; A = 00000101
+
+    ; Perform NOT operation
+    CPL           ; A = 11111010 (-6 in Two's Complement)
+    ; Note: CPL is equivalent to XOR 0xFF
+
+    ; Common uses:
+    ; 1. Inverting a mask
+    LD A, 0x0F    ; A = 00001111 (mask for lower 4 bits)
+    CPL           ; A = 11110000 (mask for upper 4 bits)
+
+    ; 2. Toggling all bits
+    LD A, 0x42    ; A = 01000010
+    CPL           ; A = 10111101</code></pre>
+              </div>
+              <div id="not-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; NOT operation (NOT 5 = -6)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform NOT operation
+<span class="action-step">SET DATA SWITCHES: 00101111 (2F hex) - CPL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mb-6 p-4 border border-gray-300 dark:border-gray-600 rounded-md"
+          >
+            <h4 class="text-lg font-semibold mb-2">XOR (<code>^</code>)</h4>
+            <p class="mb-2">
+              Result bit is 1 if input bits are <strong>different</strong>.
+              <strong>Use Cases:</strong> Toggling specific bits (XORing with a
+              mask flips the bits where the mask is 1), simple
+              checksums/hashing, basic encryption (XORing data with a key),
+              swapping values without a temporary variable.
+            </p>
+            <pre class="language-plaintext"><code>  0101 (5)  // Input A
+^ 0011 (3)  // Input B (Mask)
+------
+  0110 (6)  // Result (Bits at pos 0 and 2 were different)</code></pre>
+            <div class="code-tabs-container">
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'xor-js')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'xor-py')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'xor-z80')"
+                >
+                  Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'xor-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
+              </div>
+              <div id="xor-js" class="tab-content">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">let a = 5; // 0101
+let b = 3; // 0011
+console.log(a ^ b); // Output: 6 (0110)</code></pre>
+              </div>
+              <div id="xor-py" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python">a = 5 # 0b0101
+b = 3 # 0b0011
+print(a ^ b) # Output: 6 (0b0110)</code></pre>
+              </div>
+              <div id="xor-z80" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Z80 Assembly: XOR operation
+; XOR performs bitwise XOR between A and operand
+; Result is stored in A
+
+    ; Load values into registers
+    LD A, 5       ; A = 00000101
+    LD B, 3       ; B = 00000011
+
+    ; Perform XOR operation
+    XOR B         ; A = A XOR B
+    ; Result: A = 00000110 (6)
+
+    ; Common uses:
+    ; 1. Toggling specific bits
+    LD A, 0x42    ; A = 01000010
+    XOR 0x02      ; Toggle bit 1: A = 01000000
+
+    ; 2. Simple encryption/decryption
+    LD A, 0x55    ; Data to encrypt
+    XOR 0x33      ; XOR with key: A = 0x66
+    XOR 0x33      ; XOR again to decrypt: A = 0x55</code></pre>
+              </div>
+              <div id="xor-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; XOR operation (5 XOR 3 = 6)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load first value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform XOR with second value (3)
+<span class="action-step">SET DATA SWITCHES: 10101110 (AE hex) - XRA instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mb-6 p-4 border border-gray-300 dark:border-gray-600 rounded-md"
+          >
+            <h4 class="text-lg font-semibold mb-2">
+              Left Shift (<code>&lt;&lt;</code>)
+            </h4>
+            <p class="mb-2">
+              Shifts all bits to the left by N positions, filling the rightmost
+              N positions with 0s. <strong>Why use it?</strong> It's a very fast
+              way to multiply by powers of 2 (<code>x &lt;&lt; N</code> is
+              equivalent to <code>x * 2<sup>N</sup></code
+              >). Also used for packing data efficiently into smaller spaces.
+            </p>
+            <pre
+              class="language-plaintext"
+            ><code>  0011 (3) &lt;&lt; 2 = 1100 (12)  (3 * 2^2 = 3 * 4 = 12)</code></pre>
+            <div class="code-tabs-container">
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'lshift-js')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'lshift-py')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'lshift-z80')"
+                >
+                  Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'lshift-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
+              </div>
+              <div id="lshift-js" class="tab-content">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">let a = 3;
+let n = 2;
+console.log(a &lt;&lt; n); // Output: 12</code></pre>
+              </div>
+              <div id="lshift-py" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python">a = 3
+n = 2
+print(a &lt;&lt; n) # Output: 12</code></pre>
+              </div>
+              <div id="lshift-z80" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Z80 Assembly: Left Shift
+; SLA performs arithmetic left shift (multiply by 2)
+; SLL performs logical left shift (multiply by 2, sets bit 0)
+; Result is stored in A or specified register
+
+    ; Load value into register
+    LD A, 3       ; A = 00000011
+
+    ; Perform left shift (multiply by 2)
+    SLA A         ; A = 00000110 (6)
+    ; Note: SLA preserves sign bit, shifts left, sets bit 0 to 0
+
+    ; Common uses:
+    ; 1. Fast multiplication by powers of 2
+    LD A, 5       ; A = 00000101
+    SLA A         ; Multiply by 2: A = 00001010 (10)
+    SLA A         ; Multiply by 4: A = 00010100 (20)
+
+    ; 2. Packing bits (using SLL)
+    LD A, 0x42    ; A = 01000010
+    SLL A         ; Shift left, set bit 0: A = 10000101</code></pre>
+              </div>
+              <div id="lshift-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Left shift operation (3 << 2 = 12)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load value (3)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; First shift left
+<span class="action-step">SET DATA SWITCHES: 11001011 (CB hex) - Prefix for shift operations</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00100111 (27 hex) - SLA A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Second shift left
+<span class="action-step">SET DATA SWITCHES: 11001011 (CB hex) - Prefix for shift operations</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00100111 (27 hex) - SLA A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+SET ADDRESS SWITCHES: 0000000000000000
+PRESS EXAMINE
+PRESS RUN</code></pre>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="mb-6 p-4 border border-gray-300 dark:border-gray-600 rounded-md"
+          >
+            <h4 class="text-lg font-semibold mb-2">
+              Right Shift (<code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code>)
+            </h4>
+            <p class="mb-2">
+              Shifts all bits to the right by N positions. Bits shifted off the
+              right end are discarded. <strong>Why use it?</strong> It's a very
+              fast way to perform integer division by powers of 2 (<code
+                >x >> N</code
+              >
+              is roughly <code>x / 2<sup>N</sup></code
+              >, truncating the result). Also used for unpacking data or
+              isolating specific parts of a number.
+            </p>
+            <ul class="list-disc list-inside text-sm pl-4 mb-2">
+              <li>
+                <code>&gt;&gt;</code> (Sign-propagating/Arithmetic): Fills
+                vacated left bits with the original sign bit. Preserves the
+                number's sign. This is the standard behavior in Python and for
+                signed integers in JS/Java/C++.
+              </li>
+              <li>
+                <code>&gt;&gt;&gt;</code> (Zero-fill/Logical - JS only): Always
+                fills vacated left bits with 0. Treats the number as unsigned
+                for the shift operation.
+              </li>
+            </ul>
+            <pre
+              class="language-plaintext"
+            ><code>  0110 (6) >> 1 = 0011 (3)   (6 / 2^1 = 3)
+  -6 >> 1 = -3 (Sign preserved)</code></pre>
+            <div class="code-tabs-container">
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'rshift-js')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'rshift-py')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'rshift-z80')"
+                >
+                  Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'rshift-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
+              </div>
+              <div id="rshift-js" class="tab-content">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">let a = 6;
+let n = 1;
+console.log(a >> n);  // Output: 3
+console.log(a >>> n); // Output: 3 (Same for positive numbers)
+
+let negA = -6;
+console.log(negA >> n);  // Output: -3 (Sign-propagating)
+console.log(negA >>> n); // Output: 2147483645 (Zero-fill)</code></pre>
+              </div>
+              <div id="rshift-py" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python"># Python's >> is always sign-propagating (arithmetic)
+a = 6
+n = 1
+print(a >> n) # Output: 3
+
+neg_a = -6
+print(neg_a >> n) # Output: -3
+
+# Logical right shift requires masking if needed
+width = 32
+mask = (1 &lt;&lt; width) - 1
+print(f"Logical approx: {(neg_a &amp; mask) >> n}") # Output: 2147483645</code></pre>
+              </div>
+              <div id="rshift-z80" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-asm">; Z80 Assembly: Right Shift
+; SRA performs arithmetic right shift (divide by 2, preserves sign)
+; SRL performs logical right shift (divide by 2, sets bit 7 to 0)
+; Result is stored in A or specified register
+
+    ; Load value into register
+    LD A, 6       ; A = 00000110
+
+    ; Perform right shift (divide by 2)
+    SRA A         ; A = 00000011 (3)
+    ; Note: SRA preserves sign bit, shifts right, sets bit 7 to sign bit
+
+    ; Common uses:
+    ; 1. Fast division by powers of 2
+    LD A, 20      ; A = 00010100
+    SRA A         ; Divide by 2: A = 00001010 (10)
+    SRA A         ; Divide by 4: A = 00000101 (5)
+
+    ; 2. Extracting bits (using SRL)
+    LD A, 0x42    ; A = 01000010
+    SRL A         ; Shift right, clear bit 7: A = 00100001</code></pre>
+              </div>
+              <div id="rshift-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Right shift operation (6 >> 1 = 3)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load value (6)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - value 6</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform right shift
+<span class="action-step">SET DATA SWITCHES: 11001011 (CB hex) - Prefix for shift operations</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00101111 (2F hex) - SRA A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="binary-to-decimal"
+        aria-labelledby="binary-to-decimal-heading"
+      >
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="binary-to-decimal-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            5. Bridging the Gap: Converting Binary to Decimal
+          </h2>
+          <p class="mb-4">
+            <strong>Why convert to decimal?</strong> While computers work in
+            binary, humans primarily understand and communicate using the
+            decimal system. Converting binary values to decimal allows us to
+            interpret computer data, memory contents, or calculation results in
+            a familiar format.
+          </p>
+          <h3 class="text-xl font-medium mb-3">Positional Value Method</h3>
+          <p class="mb-4">
+            This method directly applies the definition of base-2 place values.
+            Sum the decimal values (powers of 2) corresponding to each '1' bit
+            in the binary number. Example:
+            <code class="language-text">10110</code> → 1*16 + 0*8 + 1*4 + 1*2 +
+            0*1 = <strong>22</strong>.
+          </p>
+          <h3 class="text-xl font-medium mb-3 mt-6">Doubling Method</h3>
+          <p class="mb-4">
+            An alternative algorithm often easier for mental calculation. Start
+            with 0, scan the binary number from left to right. For each bit,
+            double your current total and add the bit's value (0 or 1). Example:
+            <code class="language-text">10110</code> →
+            (((((0*2)+1)*2)+0)*2+1)*2+1)*2+0 = <strong>22</strong>.
+          </p>
+          <h3 class="text-xl font-medium mb-3 mt-6">Fractional Parts</h3>
+          <p class="mb-2">
+            For bits after the binary point, use negative powers of 2 (1/2, 1/4,
+            1/8...). Example: <code class="language-text">10.11</code> → (1*2 +
+            0*1) + (1*0.5 + 1*0.25) = 2 + 0.75 = <strong>2.75</strong>.
+          </p>
+
+          <div class="code-tabs-container">
+            <h4 class="text-lg font-semibold mb-2">
+              Code Example: Binary String to Decimal
+            </h4>
+            <p class="mb-2 text-sm">
+              Most languages provide built-in functions, but understanding the
+              manual methods (like the positional one shown here) clarifies the
+              concept.
+            </p>
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'bin2dec-js')"
+              >
+                JavaScript
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2dec-py')"
+              >
+                Python
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2dec-z80')"
+              >
+                Assembly (Z80)
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2dec-altair')"
+              >
+                Altair (step-by-step)
+              </button>
+            </div>
+            <div id="bin2dec-js" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-javascript">// 1. Built-in
+let binStr = "10110";
+console.log(parseInt(binStr, 2)); // Output: 22
+
+// 2. Manual Positional
+function binToDec(binStr) {
+  let dec = 0;
+  let power = 0;
+  for (let i = binStr.length - 1; i >= 0; i--) {
+    if (binStr[i] === '1') {
+        dec += Math.pow(2, power);
+    }
+    power++;
+  }
+  return dec;
+}
+console.log(binToDec(binStr)); // Output: 22
+
+// 3. Fractional (Manual)
+function binFracToDec(binStr) {
+    const [intP, fracP=""] = binStr.split('.');
+    let dec = parseInt(intP, 2) || 0;
+    for (let i = 0; i < fracP.length; i++) {
+        if (fracP[i] === '1') {
+            dec += Math.pow(2, -(i + 1));
+        }
+    }
+    return dec;
+}
+console.log(binFracToDec("10.11")); // Output: 2.75
+</code></pre>
+            </div>
+            <div id="bin2dec-py" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-python"># 1. Built-in
+binary_string = "10110"
+print(int(binary_string, 2)) # Output: 22
+
+# 2. Manual Positional
+def binary_to_decimal(bin_str):
+  dec = 0
+  power = 0
+  for bit in reversed(bin_str):
+    if bit == '1':
+      dec += 2**power
+    power += 1
+  return dec
+print(binary_to_decimal(binary_string)) # Output: 22
+
+# 3. Fractional (Manual)
+def binary_fraction_to_decimal(bin_str):
+    int_part, _, frac_part = bin_str.partition('.')
+    dec = int(int_part, 2) if int_part else 0
+    frac_val = sum(int(bit) * 2**-(i + 1) for i, bit in enumerate(frac_part))
+    return dec + frac_val
+
+print(binary_fraction_to_decimal("10.11")) # Output: 2.75
+</code></pre>
+            </div>
+            <div id="bin2dec-z80" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Z80 Assembly: Binary string to decimal conversion
+; Input: Binary string in memory, length in B
+; Output: Decimal value in HL
+
+    LD HL, 0      ; Initialize result to 0
+    LD DE, binary ; Point to binary string
+    LD B, 16      ; Length of binary string
+
+convert_loop:
+    SLA L         ; Shift result left
+    RL H          ; Include carry in high byte
+    LD A, (DE)    ; Get next binary digit
+    SUB '0'       ; Convert ASCII to number
+    OR L          ; OR with low byte
+    LD L, A       ; Store back
+    INC DE        ; Next character
+    DJNZ convert_loop ; Decrement B and loop if not zero
+    HALT          ; Stop program
+
+; Binary string in memory (16 bits)
+binary:
+    DB "10110", 0 ; Null-terminated string</code></pre>
+              <div class="altair-instructions">
+                <h4>How to Input This Code in Altair:</h4>
+                <ol>
+                  <li class="comment">; Initial Setup:</li>
+                  <li class="action-step">; Press RESET to clear the system</li>
+                  <li class="comment">; For first instruction (Load 5):</li>
+                  <li class="code-step">
+                    ; Set address switches: 0000000000000000
+                  </li>
+                  <li class="action-step">; Press EXAMINE to load address</li>
+                  <li class="code-step">
+                    ; Set data switches: 00111110 (3E hex) - MVI A instruction
+                  </li>
+                  <li class="action-step">
+                    ; Press DEPOSIT to store the value
+                  </li>
+                  <li class="action-step">
+                    ; Press EXAMINE NEXT for address 0001
+                  </li>
+                  <li class="code-step">
+                    ; Set data switches: 00000101 (05 hex) - immediate value 5
+                  </li>
+                  <li class="action-step">
+                    ; Press DEPOSIT to store the value
+                  </li>
+                  <li class="comment">; For second instruction (Add 3):</li>
+                  <li class="action-step">
+                    ; Press EXAMINE NEXT for address 0002
+                  </li>
+                  <li class="code-step">
+                    ; Set data switches: 11000110 (C6 hex) - ADI instruction
+                  </li>
+                  <li class="action-step">
+                    ; Press DEPOSIT to store the value
+                  </li>
+                  <li class="action-step">
+                    ; Press EXAMINE NEXT for address 0003
+                  </li>
+                  <li class="code-step">
+                    ; Set data switches: 00000011 (03 hex) - immediate value 3
+                  </li>
+                  <li class="action-step">
+                    ; Press DEPOSIT to store the value
+                  </li>
+                  <li class="comment">; For final instruction (Halt):</li>
+                  <li class="action-step">
+                    ; Press EXAMINE NEXT for address 0004
+                  </li>
+                  <li class="code-step">
+                    ; Set data switches: 01110110 (76 hex) - HLT instruction
+                  </li>
+                  <li class="action-step">
+                    ; Press DEPOSIT to store the value
+                  </li>
+                  <li class="comment">; To run the program:</li>
+                  <li class="code-step">
+                    ; Set address switches: 0000000000000000
+                  </li>
+                  <li class="action-step">
+                    ; Press EXAMINE to return to start
+                  </li>
+                  <li class="action-step">
+                    ; Press RUN to execute the program
+                  </li>
+                </ol>
+                <p class="comment" style="margin-top: 1rem">
+                  ; After running, the accumulator will contain 8 (5 + 3)
+                </p>
+              </div>
+            </div>
+            <div id="bin2dec-altair" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Binary to decimal conversion (10110 = 22)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Initialize HL to 0
+<span class="action-step">SET DATA SWITCHES: 00100001 (21 hex) - LD HL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Load binary string address
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010001 (11 hex) - LD DE instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010000 (10 hex) - binary address low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - binary address high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Set counter B to 5 (length of binary string)
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - LD B instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Store binary string "10110"
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span>
+
+; After execution:
+; HL register pair will contain 22 (decimal)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="binary-to-hex" aria-labelledby="binary-to-hex-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="binary-to-hex-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            6. Hexadecimal Harmony: Converting Binary to Hexadecimal
+          </h2>
+          <p class="mb-4">
+            Hexadecimal (base-16) uses digits 0-9 and letters A-F.
+            <strong>Why use Hex?</strong> Binary numbers get very long very
+            quickly (e.g., a 32-bit number is 32 0s/1s!). Hexadecimal provides a
+            much more compact way to represent binary data. Since 16 is a power
+            of 2 (16 = 2<sup>4</sup>), exactly four binary digits (bits) map
+            perfectly to one hexadecimal digit. This makes conversion
+            straightforward and is much easier for humans to read and write than
+            long binary strings.
+          </p>
+          <p class="mb-4">
+            <strong>Use Cases:</strong> Hex is extremely common in computing for
+            representing memory addresses, defining colors (e.g., CSS color
+            codes like `#FF0000` for red), displaying raw data in memory dumps
+            or file hex editors, and in assembly language programming.
+          </p>
+          <h3 class="text-xl font-medium mb-3">Grouping</h3>
+          <p class="mb-2">
+            The key is grouping the binary string into sets of
+            <strong>four</strong> bits, starting from the right (or binary
+            point). Pad the leftmost group with leading zeros if needed.
+            Example: <code class="language-text">1101011010</code> →
+            <code class="language-text">0011 0101 1010</code>
+          </p>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Conversion Table (4-bit to Hex)
+          </h3>
+          <div class="overflow-x-auto mb-4">
+            <table class="min-w-full">
+              <tbody>
+                <tr>
+                  <td>0000=0</td>
+                  <td>0001=1</td>
+                  <td>0010=2</td>
+                  <td>0011=3</td>
+                </tr>
+                <tr>
+                  <td>0100=4</td>
+                  <td>0101=5</td>
+                  <td>0110=6</td>
+                  <td>0111=7</td>
+                </tr>
+                <tr>
+                  <td>1000=8</td>
+                  <td>1001=9</td>
+                  <td>1010=A</td>
+                  <td>1011=B</td>
+                </tr>
+                <tr>
+                  <td>1100=C</td>
+                  <td>1101=D</td>
+                  <td>1110=E</td>
+                  <td>1111=F</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 class="text-xl font-medium mb-3 mt-6">Example</h3>
+          <p class="mb-2">
+            Convert each 4-bit group: <code class="language-text">0011</code>→3,
+            <code class="language-text">0101</code>→5,
+            <code class="language-text">1010</code>→A. Combine them:
+            <code class="language-text">35A</code><sub>16</sub>.
+          </p>
+
+          <div class="code-tabs-container">
+            <h4 class="text-lg font-semibold mb-2">
+              Code Example: Binary String to Hexadecimal
+            </h4>
+            <p class="mb-2 text-sm">
+              Using built-ins (often easiest) and the manual grouping method.
+            </p>
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'bin2hex-js')"
+              >
+                JavaScript
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2hex-py')"
+              >
+                Python
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2hex-z80')"
+              >
+                Assembly (Z80)
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2hex-altair')"
+              >
+                Altair (step-by-step)
+              </button>
+            </div>
+            <div id="bin2hex-js" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-javascript">// 1. Built-in (via Decimal)
+let binStr = "1101011010";
+console.log(parseInt(binStr, 2).toString(16).toUpperCase()); // Output: 35A
+
+// 2. Manual Grouping
+function binToHex(binStr) {
+  // Pad with leading zeros to make length a multiple of 4
+  while (binStr.length % 4 !== 0) {
+    binStr = '0' + binStr;
+  }
+
+  let hex = "";
+  const binToHexMap = { // Complete map
+    "0000": "0", "0001": "1", "0010": "2", "0011": "3",
+    "0100": "4", "0101": "5", "0110": "6", "0111": "7",
+    "1000": "8", "1001": "9", "1010": "A", "1011": "B",
+    "1100": "C", "1101": "D", "1110": "E", "1111": "F"
+  };
+
+  for (let i = 0; i < binStr.length; i += 4) {
+    const chunk = binStr.substring(i, i + 4);
+    hex += binToHexMap[chunk]; // Use map
+  }
+  return hex;
+}
+console.log(binToHex(binStr)); // Output: 35A
+</code></pre>
+            </div>
+            <div id="bin2hex-py" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-python">import math
+
+# 1. Built-in (via int)
+binary_string = "1101011010"
+print(hex(int(binary_string, 2))) # Output: 0x35a
+
+# 2. Manual Grouping
+def binary_to_hex(bin_str):
+  # Pad with leading zeros
+  pad_len = math.ceil(len(bin_str) / 4) * 4
+  bin_str = bin_str.zfill(pad_len)
+
+  hex_str = ""
+  bin_to_hex_map = { # Complete map
+    "0000": "0", "0001": "1", "0010": "2", "0011": "3", "0100": "4", "0101": "5", "0110": "6", "0111": "7",
+    "1000": "8", "1001": "9", "1010": "A", "1011": "B", "1100": "C", "1101": "D", "1110": "E", "1111": "F"
+  }
+
+  for i in range(0, len(bin_str), 4):
+    hex_str += bin_to_hex_map.get(bin_str[i:i+4], '?') # Use map
+
+  return "0x" + hex_str
+
+print(binary_to_hex(binary_string).upper()) # Output: 0X35A
+</code></pre>
+            </div>
+            <div id="bin2hex-z80" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Z80 Assembly: Binary to hexadecimal conversion
+; Input: Binary string in memory
+; Output: Hex string in output buffer
+
+    LD HL, binary ; Point to binary string
+    LD DE, output ; Point to output buffer
+    LD B, 4       ; Process 4 bits at a time
+
+convert_loop:
+    LD A, 0       ; Clear accumulator
+    LD C, 4       ; Process 4 bits
+
+bit_loop:
+    SLA A         ; Shift left
+    LD R, (HL)    ; Get next bit
+    SUB '0'       ; Convert to number
+    OR A          ; OR with accumulator
+    INC HL        ; Next bit
+    DEC C         ; Decrement counter
+    JR NZ, bit_loop ; Loop if not zero
+
+    ; Convert 4 bits to hex
+    CP 10         ; Compare with 10
+    JR C, decimal ; If < 10, it's a digit
+    ADD A, 7      ; Add 7 to convert to letter
+decimal:
+    ADD A, '0'    ; Convert to ASCII
+    LD (DE), A    ; Store in output
+    INC DE        ; Next output position
+    DJNZ convert_loop ; Decrement B and loop if not zero
+    HALT          ; Stop program
+
+; Data in memory
+binary:
+    DB "1101011010", 0  ; Null-terminated string
+output:
+    DS 4           ; Space for hex output</code></pre>
+              <div class="altair-instructions">
+                <h4>How to Input This Code in Altair:</h4>
+                <ol>
+                  <li>; Press RESET to clear the system</li>
+                  <li>; Enter the following commands:</li>
+                  <li>; 1. LD HL,binary: Press 21, [address], Enter</li>
+                  <li>; 2. LD DE,output: Press 11, [address], Enter</li>
+                  <li>; 3. LD B,4: Press 06, 04, Enter</li>
+                  <li>; 4. LD A,0: Press 3E, 00, Enter</li>
+                  <li>; 5. LD C,4: Press 0E, 04, Enter</li>
+                  <li>; 6. SLA A: Press CB, 27, Enter</li>
+                  <li>; 7. LD R,(HL): Press 4E, Enter</li>
+                  <li>; 8. SUB '0': Press D6, 30, Enter</li>
+                  <li>; 9. OR A: Press B7, Enter</li>
+                  <li>; 10. INC HL: Press 23, Enter</li>
+                  <li>; 11. DEC C: Press 0D, Enter</li>
+                  <li>; 12. JR NZ,bit_loop: Press 20, F5, Enter</li>
+                  <li>; 13. CP 10: Press FE, 0A, Enter</li>
+                  <li>; 14. JR C,decimal: Press 38, 02, Enter</li>
+                  <li>; 15. ADD A,7: Press C6, 07, Enter</li>
+                  <li>; 16. ADD A,'0': Press C6, 30, Enter</li>
+                  <li>; 17. LD (DE),A: Press 12, Enter</li>
+                  <li>; 18. INC DE: Press 13, Enter</li>
+                  <li>; 19. DJNZ convert_loop: Press 10, E5, Enter</li>
+                  <li>; 20. HALT: Press 76, Enter</li>
+                  <li>
+                    ; 21. Binary string: Enter ASCII "1101011010" followed by 00
+                  </li>
+                  <li>; 22. Output buffer: Reserve 4 bytes</li>
+                  <li>; Press RUN to execute the program</li>
+                </ol>
+              </div>
+            </div>
+            <div id="bin2hex-altair" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Binary to hexadecimal conversion (1101011010 = 35A)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Initialize HL to 0 (output buffer)
+<span class="action-step">SET DATA SWITCHES: 00100001 (21 hex) - LD HL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Load binary string address into DE
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010001 (11 hex) - LD DE instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010000 (10 hex) - binary address low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - binary address high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Store binary string "1101011010"
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Set counter B to 4 (process 4 bits at a time)
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - LD B instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000100 (04 hex) - value 4</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span>
+
+; After execution:
+; HL register pair will contain 22 (decimal)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="binary-to-octal" aria-labelledby="binary-to-octal-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="binary-to-octal-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            7. Octal Insights: Converting Binary to Octal
+          </h2>
+          <p class="mb-4">
+            Octal (base-8) uses digits 0-7.
+            <strong>Why use Octal?</strong> Similar to hex, it's more compact
+            than binary. Since 8 = 2<sup>3</sup>, one octal digit maps perfectly
+            to three binary digits. While less common than hex today, octal was
+            historically significant, especially in older computer systems (like
+            DEC PDP series) and is still used in some contexts, most notably for
+            representing file permissions in Unix/Linux systems (e.g., `chmod
+            755`).
+          </p>
+          <h3 class="text-xl font-medium mb-3">Grouping</h3>
+          <p class="mb-2">
+            Group the binary string into sets of <strong>three</strong> bits,
+            starting from the right. Pad the left with zeros if needed. Example:
+            <code class="language-text">1101011010</code> →
+            <code class="language-text">001 101 011 010</code>
+          </p>
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Conversion Table (3-bit to Octal)
+          </h3>
+          <div class="overflow-x-auto mb-4">
+            <table class="w-auto">
+              <tbody>
+                <tr>
+                  <td>000=0</td>
+                  <td>001=1</td>
+                  <td>010=2</td>
+                  <td>011=3</td>
+                </tr>
+                <tr>
+                  <td>100=4</td>
+                  <td>101=5</td>
+                  <td>110=6</td>
+                  <td>111=7</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <h3 class="text-xl font-medium mb-3 mt-6">Example</h3>
+          <p class="mb-2">
+            Convert each 3-bit group: <code class="language-text">001</code>→1,
+            <code class="language-text">101</code>→5,
+            <code class="language-text">011</code>→3,
+            <code class="language-text">010</code>→2. Combine them:
+            <code class="language-text">1532</code><sub>8</sub>.
+          </p>
+
+          <div class="code-tabs-container">
+            <h4 class="text-lg font-semibold mb-2">
+              Code Example: Binary String to Octal
+            </h4>
+            <p class="mb-2 text-sm">
+              Using built-ins and the manual grouping method.
+            </p>
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'bin2oct-js')"
+              >
+                JavaScript
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2oct-py')"
+              >
+                Python
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2oct-z80')"
+              >
+                Assembly (Z80)
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2oct-altair')"
+              >
+                Altair (step-by-step)
+              </button>
+            </div>
+            <div id="bin2oct-js" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-javascript">// 1. Built-in (via Decimal)
+let binStr = "1101011010";
+console.log(parseInt(binStr, 2).toString(8)); // Output: 1532
+
+// 2. Manual Grouping
+function binToOct(binStr) {
+  // Pad with leading zeros to make length a multiple of 3
+  while (binStr.length % 3 !== 0) {
+    binStr = '0' + binStr;
+  }
+
+  let oct = "";
+  const binToOctMap = { // Complete map
+    "000": "0", "001": "1", "010": "2", "011": "3",
+    "100": "4", "101": "5", "110": "6", "111": "7"
+  };
+
+  for (let i = 0; i < binStr.length; i += 3) {
+    oct += binToOctMap[binStr.substring(i, i + 3)]; // Use map
+  }
+  // Remove leading zero if result is not just "0"
+  if (oct.length > 1 && oct.startsWith('0')) {
+      oct = oct.substring(1);
+  }
+  return oct;
+}
+console.log(binToOct(binStr)); // Output: 1532
+</code></pre>
+            </div>
+            <div id="bin2oct-py" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-python">import math
+
+# 1. Built-in (via int)
+binary_string = "1101011010"
+print(oct(int(binary_string, 2))) # Output: 0o1532
+
+# 2. Manual Grouping
+def binary_to_octal(bin_str):
+  # Pad with leading zeros
+  pad_len = math.ceil(len(bin_str) / 3) * 3
+  bin_str = bin_str.zfill(pad_len)
+
+  oct_str = ""
+  bin_to_oct_map = { # Complete map
+    "000": "0", "001": "1", "010": "2", "011": "3",
+    "100": "4", "101": "5", "110": "6", "111": "7"
+  }
+
+  for i in range(0, len(bin_str), 3):
+    oct_str += bin_to_oct_map.get(bin_str[i:i+3], '?') # Use map
+
+  # Remove leading zero unless the result is just "0"
+  if len(oct_str) > 1 and oct_str.startswith('0'):
+      oct_str = oct_str[1:]
+
+  return "0o" + oct_str
+
+print(binary_to_octal(binary_string)) # Output: 0o1532
+</code></pre>
+            </div>
+            <div id="bin2oct-z80" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Z80 Assembly: Binary to octal conversion
+; Input: Binary string in memory
+; Output: Octal string in output buffer
+
+    LD HL, binary ; Point to binary string
+    LD DE, output ; Point to output buffer
+    LD B, 4       ; Process 3 bits at a time
+
+convert_loop:
+    LD A, 0       ; Clear accumulator
+    LD C, 3       ; Process 3 bits
+
+bit_loop:
+    SLA A         ; Shift left
+    LD R, (HL)    ; Get next bit
+    SUB '0'       ; Convert to number
+    OR A          ; OR with accumulator
+    INC HL        ; Next bit
+    DEC C         ; Decrement counter
+    JR NZ, bit_loop ; Loop if not zero
+
+    ; Convert 3 bits to octal
+    ADD A, '0'    ; Convert to ASCII
+    LD (DE), A    ; Store in output
+    INC DE        ; Next output position
+    DJNZ convert_loop ; Decrement B and loop if not zero
+    HALT          ; Stop program
+
+; Data in memory
+binary:
+    DB "1101011010", 0  ; Null-terminated string
+output:
+    DS 4           ; Space for octal output</code></pre>
+              <div class="altair-instructions">
+                <h4>How to Input This Code in Altair:</h4>
+                <ol>
+                  <li>; Press RESET to clear the system</li>
+                  <li>; Enter the following commands:</li>
+                  <li>; 1. LD HL,binary: Press 21, [address], Enter</li>
+                  <li>; 2. LD DE,output: Press 11, [address], Enter</li>
+                  <li>; 3. LD B,4: Press 06, 04, Enter</li>
+                  <li>; 4. LD A,0: Press 3E, 00, Enter</li>
+                  <li>; 5. LD C,3: Press 0E, 03, Enter</li>
+                  <li>; 6. SLA A: Press CB, 27, Enter</li>
+                  <li>; 7. LD R,(HL): Press 4E, Enter</li>
+                  <li>; 8. SUB '0': Press D6, 30, Enter</li>
+                  <li>; 9. OR A: Press B7, Enter</li>
+                  <li>; 10. INC HL: Press 23, Enter</li>
+                  <li>; 11. DEC C: Press 0D, Enter</li>
+                  <li>; 12. JR NZ,bit_loop: Press 20, F5, Enter</li>
+                  <li>; 13. ADD A,'0': Press C6, 30, Enter</li>
+                  <li>; 14. LD (DE),A: Press 12, Enter</li>
+                  <li>; 15. INC DE: Press 13, Enter</li>
+                  <li>; 16. DJNZ convert_loop: Press 10, E5, Enter</li>
+                  <li>; 17. HALT: Press 76, Enter</li>
+                  <li>
+                    ; 18. Binary string: Enter ASCII "1101011010" followed by 00
+                  </li>
+                  <li>; 19. Output buffer: Reserve 4 bytes</li>
+                  <li>; Press RUN to execute the program</li>
+                </ol>
+              </div>
+            </div>
+            <div id="bin2oct-altair" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Binary to octal conversion (1101011010 = 1532)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Initialize HL to 0 (output buffer)
+<span class="action-step">SET DATA SWITCHES: 00100001 (21 hex) - LD HL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Load binary string address into DE
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010001 (11 hex) - LD DE instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010000 (10 hex) - binary address low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - binary address high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Store binary string "1101011010"
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Set counter B to 4 (process 3 bits at a time)
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - LD B instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000100 (04 hex) - value 4</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span>
+
+; After execution:
+; HL register pair will contain 1532 (octal)</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tips-tricks" aria-labelledby="tips-tricks-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="tips-tricks-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            8. Quick Translations: Tips and Tricks
+          </h2>
+          <p class="mb-4">
+            These tips help solidify understanding and speed up conversions:
+          </p>
+          <ul class="list-disc list-inside space-y-3">
+            <li>
+              <strong>Grouping (Why?):</strong> Grouping by 3 (Octal) or 4 (Hex)
+              works because 8 and 16 are powers of 2. It's a shortcut based on
+              the mathematical relationship between the bases, avoiding direct
+              decimal conversion.
+            </li>
+            <li>
+              <strong>Memorize Small Patterns:</strong> Knowing 0-7 (for Octal)
+              and 0-F (for Hex) binary equivalents makes the grouping method
+              much faster.
+            </li>
+            <li>
+              <strong>Powers of 2 are Key:</strong> Always remember the place
+              values (1, 2, 4, 8, 16...) for understanding binary magnitude and
+              for positional conversion to decimal.
+            </li>
+            <li>
+              <strong>Positional Value (Bin→Dec):</strong> This is the most
+              fundamental method for understanding how a binary number
+              represents its decimal value.
+            </li>
+            <li>
+              <strong>Check Work:</strong> Use programming language functions or
+              online calculators to verify your manual conversions, especially
+              while learning.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="altair" aria-labelledby="altair-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="altair-heading"
+            class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            9. Historical Context: Binary Input and the Altair 8800
+          </h2>
+          <p class="mb-4">
+            The <strong>MITS Altair 8800</strong> (1975) is a landmark machine
+            that helped launch the personal computer era. For me personally,
+            this was the first computer I ever used around 1981, and it sparked
+            my lifelong interest in computing.
+            <strong>Why is it relevant here?</strong> It vividly illustrates the
+            fundamental role of binary. Unlike modern computers with layers of
+            abstraction (keyboards, operating systems, graphical interfaces),
+            programming the first Altairs involved interacting directly with the
+            machine's binary language.
+          </p>
+          <div class="my-4 flex justify-center">
+            <img
+              src="public/altair8800.jpg"
+              alt="MITS Altair 8800 front panel"
+              class="rounded-lg shadow-md max-w-full h-auto md:max-w-md border border-gray-300 dark:border-gray-600"
+              onerror="this.onerror=null; this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Altair+8800+Image'; this.alt='Placeholder image for Altair 8800';"
+            />
+          </div>
+
+          <div class="altair-section">
+            <h3>Historical Background</h3>
+            <p>
+              The Altair 8800 was introduced in 1975 by Micro Instrumentation
+              and Telemetry Systems (MITS) as a mail-order kit for $439. It was
+              based on the Intel 8080 microprocessor and became the first
+              commercially successful personal computer. The machine was
+              featured on the cover of Popular Electronics in January 1975,
+              which caught the attention of Paul Allen and Bill Gates.
+            </p>
+
+            <p>
+              In 1975, Bill Gates and Paul Allen developed Altair BASIC, which
+              became Microsoft's first product. This was a significant milestone
+              as it made the Altair more accessible to users who weren't
+              comfortable with machine language programming. The first version
+              of Altair BASIC was written on a PDP-10 minicomputer at Harvard
+              University, where Gates was a student.
+            </p>
+
+            <h3>Binary Switches for Input</h3>
+            <p>
+              Users had to manually set rows of toggle switches on the front
+              panel to represent binary 1s (switch up) and 0s (switch down).
+              They would set the switches for a memory address, deposit that
+              address, then set the switches for the binary instruction or data
+              byte, and deposit that value into memory. Output was read from
+              blinking LEDs, also representing binary states.
+            </p>
+
+            <h3>Example: Simple Program Input</h3>
+            <p>
+              Here's what it would look like to input a simple program that adds
+              two numbers. Each instruction had to be entered in binary, one
+              byte at a time:
+            </p>
+
+            <div class="code-tabs-container">
+              <div class="tab-buttons">
+                <button
+                  class="tab-button active"
+                  onclick="showTabContent(this, 'altair-steps')"
+                >
+                  Altair (step-by-step)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'javascript')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'python')"
+                >
+                  Python
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'assembly')"
+                >
+                  Assembly (Z80)
+                </button>
+              </div>
+              <div id="altair-steps" class="tab-content">
+                <div class="altair-steps">
+                  <pre><code class="language-plaintext">; Initial Setup
+<span class="action">RESET</span>                           ; Clear the system
+
+; Load First Instruction (LD HL,binary)
+<span class="address">Address 0000</span>:
+<span class="code">00100001</span> (<span class="comment">21 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Address Low Byte
+<span class="address">Address 0001</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Address High Byte
+<span class="address">Address 0002</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD DE,output Instruction
+<span class="address">Address 0003</span>:
+<span class="code">00010001</span> (<span class="comment">11 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Output Address Low Byte
+<span class="address">Address 0004</span>:
+<span class="code">00010000</span> (<span class="comment">10 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Output Address High Byte
+<span class="address">Address 0005</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD B,4 Instruction
+<span class="address">Address 0006</span>:
+<span class="code">00000110</span> (<span class="comment">06 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Counter Value
+<span class="address">Address 0007</span>:
+<span class="code">00000100</span> (<span class="comment">04 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD A,0 Instruction
+<span class="address">Address 0008</span>:
+<span class="code">00111110</span> (<span class="comment">3E hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Zero Value
+<span class="address">Address 0009</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD C,3 Instruction
+<span class="address">Address 000A</span>:
+<span class="code">00001110</span> (<span class="comment">0E hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Bit Counter
+<span class="address">Address 000B</span>:
+<span class="code">00000011</span> (<span class="comment">03 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load SLA A Instruction
+<span class="address">Address 000C</span>:
+<span class="code">11001011</span> (<span class="comment">CB hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Shift Opcode
+<span class="address">Address 000D</span>:
+<span class="code">00100111</span> (<span class="comment">27 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD R,(HL) Instruction
+<span class="address">Address 000E</span>:
+<span class="code">01001110</span> (<span class="comment">4E hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load SUB '0' Instruction
+<span class="address">Address 000F</span>:
+<span class="code">11010110</span> (<span class="comment">D6 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load ASCII '0' Value
+<span class="address">Address 0010</span>:
+<span class="code">00110000</span> (<span class="comment">30 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load OR A Instruction
+<span class="address">Address 0011</span>:
+<span class="code">10110111</span> (<span class="comment">B7 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load INC HL Instruction
+<span class="address">Address 0012</span>:
+<span class="code">00100011</span> (<span class="comment">23 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load DEC C Instruction
+<span class="address">Address 0013</span>:
+<span class="code">00001101</span> (<span class="comment">0D hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load JR NZ,bit_loop Instruction
+<span class="address">Address 0014</span>:
+<span class="code">00100000</span> (<span class="comment">20 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Jump Offset
+<span class="address">Address 0015</span>:
+<span class="code">11110101</span> (<span class="comment">F5 hex</span>)        ; Set data switches
+<span class="code">00110001</span> (<span class="comment">31 hex</span>)        ; '1'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0016</span>:
+<span class="code">00110000</span> (<span class="comment">30 hex</span>)        ; '0'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0017</span>:
+<span class="code">00110001</span> (<span class="comment">31 hex</span>)        ; '1'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0018</span>:
+<span class="code">00110001</span> (<span class="comment">31 hex</span>)        ; '1'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0019</span>:
+<span class="code">00110000</span> (<span class="comment">30 hex</span>)        ; '0'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 001A</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Null terminator
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Execute Program
+<span class="action">EXAMINE 0000</span>                    ; Return to start
+<span class="action">RUN</span>                            ; Execute program
+
+<span class="comment">; Result: HL register pair will contain the decimal value of the binary string</span></code></pre>
+                </div>
+              </div>
+              <div id="javascript" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">// JavaScript: Representing numbers and basic conversion
+let decimalNum = 10;
+let binaryLiteral = 0b1010; // Binary literal prefix 0b
+let octalLiteral = 0o12;   // Octal literal prefix 0o
+let hexLiteral = 0xA;     // Hex literal prefix 0x
+
+console.log(decimalNum);        // Output: 10
+console.log(binaryLiteral);     // Output: 10
+console.log(octalLiteral);      // Output: 10
+console.log(hexLiteral);        // Output: 10
+
+// Convert decimal to binary string
+console.log(decimalNum.toString(2)); // Output: "1010"
+console.log((5).toString(2));        // Output: "101"</code></pre>
+              </div>
+              <div id="python" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python"># Python: Representing numbers and basic conversion
+decimal_num = 10
+binary_literal = 0b1010 # Binary literal prefix 0b
+octal_literal = 0o12   # Octal literal prefix 0o
+hex_literal = 0xA     # Hex literal prefix 0x
+
+print(decimal_num)      # Output: 10
+print(binary_literal)   # Output: 10
+print(octal_literal)    # Output: 10
+print(hex_literal)      # Output: 10
+
+# Convert decimal to binary string
+print(bin(decimal_num)) # Output: "0b1010" (includes prefix)
+print(f"{decimal_num:b}") # Output: "1010" (using f-string formatting)
+print(f"{5:b}")         # Output: "101"</code></pre>
+              </div>
+              <div id="assembly" class="tab-content hidden">
+                <pre
+                  class="line-numbers"
+                ><code class="language-asm6502">; Simple addition program
+  MVI A,5    ; Load 5 into accumulator
+  ADI 03h      ; Add 3 to accumulator
+  HLT          ; Stop program</code></pre>
+              </div>
+            </div>
+
+            <h3>Peripherals and Expansion</h3>
+            <p>
+              While the Altair 8800 initially had no keyboard or display, MITS
+              later offered expansion options:
+            </p>
+            <ul>
+              <li>
+                <strong>Keyboard:</strong> The MITS 88-KBD keyboard was released
+                in 1976, connecting through the S-100 bus
+              </li>
+              <li>
+                <strong>Display:</strong> The MITS 88-VDT terminal was an
+                optional video display unit
+              </li>
+              <li>
+                <strong>Storage:</strong> The MITS 88-ACR cassette interface
+                allowed saving programs to audio cassettes
+              </li>
+              <li>
+                <strong>Memory:</strong> The base model came with 256 bytes of
+                RAM, expandable to 64KB
+              </li>
+            </ul>
+          </div>
+
+          <h3 class="text-xl font-medium mb-3 mt-6">Legacy and Impact</h3>
+          <p class="mb-4">
+            The Altair 8800's influence extends far beyond its initial release.
+            It inspired the formation of the Homebrew Computer Club, where Steve
+            Wozniak and Steve Jobs first met. The machine's S-100 bus became an
+            industry standard, and its architecture influenced many early
+            personal computers. The development of Altair BASIC marked the
+            beginning of Microsoft, which would go on to become one of the
+            world's largest technology companies.
+          </p>
+          <p class="mb-4">
+            For many early computer enthusiasts, including myself, the Altair
+            8800 was their first introduction to computing. The experience of
+            programming in binary using toggle switches provided a deep
+            understanding of how computers work at their most fundamental level
+            - something that's often abstracted away in modern computing.
+          </p>
+
+          <h3 class="text-xl font-medium mb-3 mt-6">Related Articles</h3>
+          <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4"
+          >
+            <!-- New Card -->
+            <a
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                New Card Title
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                This is a new card. Replace this text.
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Author</span>
+                <span class="mx-2">•</span>
+                <span>Category</span>
+              </div>
+            </a>
+
+            <!-- Gates Notes Altair BASIC Article -->
+            <a
+              href="https://www.gatesnotes.com/microsoft-original-source-code"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                Microsoft's Original Source Code
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                The original Altair BASIC source code that started Microsoft
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Bill Gates</span>
+                <span class="mx-2">•</span>
+                <span>Gates Notes</span>
+              </div>
+            </a>
+
+            <!-- Bill Gates Altair BASIC Article -->
+            <a
+              href="https://www.theregister.com/2025/04/03/bill_gates_altair_basic/?ref=dailydev"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                Bill Gates unearths Microsoft's ancient code like a proud nerd
+                dad
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                Founder shares 4K Altair BASIC source ahead of 50th anniversary
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Liam Proven</span>
+                <span class="mx-2">•</span>
+                <span>January 3, 2025</span>
+              </div>
+            </a>
+
+            <!-- Altair 8800 History Article -->
+            <a
+              href="https://www.computerhistory.org/revolution/personal-computers/17/297"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                The Altair 8800: The First Personal Computer
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                A detailed history of the machine that started the personal
+                computer revolution
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Computer History Museum</span>
+                <span class="mx-2">•</span>
+                <span>Historical Article</span>
+              </div>
+            </a>
+
+            <!-- Homebrew Computer Club Article -->
+            <a
+              href="https://www.computerhistory.org/revolution/personal-computers/17/297"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                The Homebrew Computer Club
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                How a group of hobbyists changed the future of computing
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Computer History Museum</span>
+                <span class="mx-2">•</span>
+                <span>Historical Article</span>
+              </div>
+            </a>
+
+            <!-- Source Code PDF -->
+            <a
+              href="public/Original-Microsoft-Source-Code.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block bg-secondary-light dark:bg-secondary-dark rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-4"
+            >
+              <h4
+                class="text-lg font-semibold mb-2 text-blue-600 dark:text-blue-400"
+              >
+                Original Microsoft Source Code (PDF)
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                View the Original Microsoft Source Code.
+              </p>
+              <div
+                class="flex items-center text-xs text-gray-500 dark:text-gray-500"
+              >
+                <span>Microsoft</span>
+                <span class="mx-2">•</span>
+                <span>Historical Document</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section id="conclusion" aria-labelledby="conclusion-heading">
+        <div
+          class="bg-primary-light dark:bg-primary-dark p-6 rounded-lg shadow-lg"
+        >
+          <h2
+            id="conclusion-heading"
+            class="text-2xl font-semibold mb-4 border-b pb-2 border-gray-300 dark:border-gray-600"
+          >
+            10. Conclusion
+          </h2>
+          <p class="mb-4">
+            From the fundamental on/off states represented by binary digits to
+            the complexities of byte order and the power of bitwise
+            manipulation, understanding these concepts is crucial for digital
+            literacy. We've seen why binary is used, how bits and bytes form
+            data, why byte order (endianness) matters for data exchange, how
+            bitwise operations provide low-level control, and why different
+            bases like hexadecimal and octal are useful shorthands.
+          </p>
+          <p>
+            Grasping these principles offers deeper insight into how computers
+            store, process, and communicate information, forming a vital
+            foundation for further study in computer science, programming, and
+            related fields.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="text-center py-6 mt-12 border-t border-gray-300 dark:border-gray-700 text-sm text-gray-600 dark:text-gray-400"
+    >
+      Built with Tailwind CSS & PrismJS. Icons by Lucide.
+    </footer>
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-nasm.min.js"></script>
+
+    <!-- Application Scripts -->
+    <script>
+      // Prism is now configured in the head section
+      // No need to configure autoloader here anymore
+      
+      // Theme toggle functionality
+      const themeToggle = document.getElementById("theme-toggle");
+      const themeIcon = document.getElementById("theme-icon");
+      const htmlElement = document.documentElement;
+
+      // Lucide SVG Icons
+      const sunIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>`;
+      const moonIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>`;
+      const copyIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>`;
+      const checkIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+
+      // Theme functions
+      const setTheme = (isDark) => {
+        htmlElement.classList.toggle("dark", isDark);
+        themeIcon.innerHTML = isDark ? sunIconSVG : moonIconSVG;
+        themeIcon.setAttribute(
+          "aria-label",
+          isDark ? "Switch to light mode" : "Switch to dark mode"
+        );
+        localStorage.setItem("theme", isDark ? "dark" : "light");
+      };
+
+      // Tab functionality
+      function showTabContent(buttonElement, tabIdToShow) {
+        const tabContainer = buttonElement.closest(".code-tabs-container");
+        if (!tabContainer) return;
+        const tabContents = tabContainer.querySelectorAll(".tab-content");
+        const tabButtons = tabContainer.querySelectorAll(".tab-button");
+        tabContents.forEach((content) => content.classList.add("hidden"));
+        tabButtons.forEach((button) => button.classList.remove("active"));
+        const selectedContent = tabContainer.querySelector(`#${tabIdToShow}`);
+        if (selectedContent) {
+          selectedContent.classList.remove("hidden");
+          buttonElement.classList.add("active");
+          requestAnimationFrame(() => Prism.highlightAllUnder(selectedContent));
+        }
+      }
+
+      // Copy code functionality
+      function copyCodeToClipboard(buttonElement) {
+        const preElement = buttonElement.nextElementSibling;
+        if (!preElement || preElement.tagName !== "PRE") {
+          console.error("Copy button could not find adjacent <pre> element.");
+          return;
+        }
+        const codeElement = preElement.querySelector("code");
+        if (!codeElement) return;
+        const codeText = codeElement.textContent || "";
+
+        navigator.clipboard
+          .writeText(codeText)
+          .then(() => {
+            buttonElement.innerHTML = checkIconSVG;
+            buttonElement.disabled = true;
+            setTimeout(() => {
+              buttonElement.innerHTML = copyIconSVG;
+              buttonElement.disabled = false;
+            }, 1500);
+          })
+          .catch((err) => console.error("Failed to copy: ", err));
+      }
+
+      // Initialize theme
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      setTheme(savedTheme === "dark" || (!savedTheme && prefersDark));
+
+      // Add event listeners
+      themeToggle.addEventListener("click", () => {
+        const isDark = htmlElement.classList.contains("dark");
+        setTheme(!isDark);
+      });
+
+      // Initialize copy buttons
+      document.querySelectorAll(".copy-code-button").forEach((button) => {
+        button.innerHTML = copyIconSVG;
+        button.setAttribute("aria-label", "Copy code to clipboard");
+        button.setAttribute("title", "Copy code to clipboard");
+      });
+
+      // Initialize code blocks
+      document.querySelectorAll("pre[class*='language-']").forEach((pre) => {
+        if (
+          !pre.previousElementSibling?.classList.contains("copy-code-button")
+        ) {
+          const button = document.createElement("button");
+          button.className = "copy-code-button";
+          button.innerHTML = copyIconSVG;
+          button.setAttribute("aria-label", "Copy code to clipboard");
+          button.setAttribute("title", "Copy code to clipboard");
+          button.onclick = () => copyCodeToClipboard(button);
+          pre.parentNode.insertBefore(button, pre);
+        }
+      });
+
+      // Hide altair-instructions sections
+      document.querySelectorAll(".altair-instructions").forEach((element) => {
+        element.style.display = "none";
+      });
+    </script>
+  </body>
+</html>
