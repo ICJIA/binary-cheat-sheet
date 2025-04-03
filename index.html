@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Decoding the Digital World: Binary Tutorial</title>
+    <title>Binary Cheat Sheet</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
@@ -213,7 +213,7 @@
         <h1
           class="text-xl md:text-2xl font-bold text-blue-600 dark:text-blue-400"
         >
-          Decoding the Digital World
+          Binary Cheat Sheet
         </h1>
         <button
           id="theme-toggle"
@@ -471,7 +471,7 @@ print(f"{5:b}")         # Output: "101"</code></pre>
             id="bits-place-value-heading"
             class="text-2xl font-semibold mb-6 border-b pb-2 border-gray-300 dark:border-gray-600"
           >
-            2. Decoding the Digits: Bits and Their Place Value
+            2. Digits: Bits and Their Place Value
           </h2>
           <h3 class="text-xl font-medium mb-3">
             Defining "Bit" and Its Significance
@@ -1733,7 +1733,9 @@ print(binary_to_octal(binary_string)) # Output: 0o1532
           </h2>
           <p class="mb-4">
             The <strong>MITS Altair 8800</strong> (1975) is a landmark machine
-            that helped launch the personal computer era.
+            that helped launch the personal computer era. For me personally,
+            this was the first computer I ever used around 1981, and it sparked
+            my lifelong interest in computing.
             <strong>Why is it relevant here?</strong> It vividly illustrates the
             fundamental role of binary. Unlike modern computers with layers of
             abstraction (keyboards, operating systems, graphical interfaces),
@@ -1742,12 +1744,31 @@ print(binary_to_octal(binary_string)) # Output: 0o1532
           </p>
           <div class="my-4 flex justify-center">
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Altair_8800_Computer.jpg"
+              src="public/altair8800.jpg"
               alt="MITS Altair 8800 front panel"
               class="rounded-lg shadow-md max-w-full h-auto md:max-w-md border border-gray-300 dark:border-gray-600"
               onerror="this.onerror=null; this.src='https://placehold.co/600x400/1f2937/e5e7eb?text=Altair+8800+Image'; this.alt='Placeholder image for Altair 8800';"
             />
           </div>
+
+          <h3 class="text-xl font-medium mb-3 mt-6">Historical Background</h3>
+          <p class="mb-4">
+            The Altair 8800 was introduced in 1975 by Micro Instrumentation and
+            Telemetry Systems (MITS) as a mail-order kit for $439. It was based
+            on the Intel 8080 microprocessor and became the first commercially
+            successful personal computer. The machine was featured on the cover
+            of Popular Electronics in January 1975, which caught the attention
+            of Paul Allen and Bill Gates.
+          </p>
+          <p class="mb-4">
+            In 1975, Bill Gates and Paul Allen developed Altair BASIC, which
+            became Microsoft's first product. This was a significant milestone
+            as it made the Altair more accessible to users who weren't
+            comfortable with machine language programming. The first version of
+            Altair BASIC was written on a PDP-10 minicomputer at Harvard
+            University, where Gates was a student.
+          </p>
+
           <h3 class="text-xl font-medium mb-3 mt-6">
             Binary Switches for Input
           </h3>
@@ -1759,14 +1780,114 @@ print(binary_to_octal(binary_string)) # Output: 0o1532
             deposit that value into memory. Output was read from blinking LEDs,
             also representing binary states.
           </p>
-          <h3 class="text-xl font-medium mb-3 mt-6">Importance of Binary</h3>
-          <p>
-            The Altair experience underscores that at the most basic hardware
-            level, computers operate purely on binary signals. Understanding
-            binary provides insight into this foundation, even though modern
-            software hides these details. It shows how far we've come in making
-            computers user-friendly, abstracting away the raw 0s and 1s that the
-            machine actually processes.
+
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Example: Simple Program Input
+          </h3>
+          <p class="mb-4">
+            Here's what it would look like to input a simple program that adds
+            two numbers. Each instruction had to be entered in binary, one byte
+            at a time:
+          </p>
+          <div class="code-tabs-container">
+            <div class="tab-buttons">
+              <button
+                class="tab-button active"
+                onclick="showTabContent(this, 'altair-binary')"
+              >
+                Binary Input
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'altair-assembly')"
+              >
+                Assembly
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'altair-basic')"
+              >
+                BASIC
+              </button>
+            </div>
+            <div id="altair-binary" class="tab-content">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-plaintext">Address  Data (Binary)  Description
+0000:    00111110        MVI A,05h    ; Load 5 into accumulator
+0001:    00000101        05h          ; The number 5
+0002:    11000110        ADI 03h      ; Add 3 to accumulator
+0003:    00000011        03h          ; The number 3
+0004:    01110110        HLT          ; Stop program</code></pre>
+            </div>
+            <div id="altair-assembly" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-asm">; Intel 8080 Assembly
+MVI A,05h    ; Load 5 into accumulator
+ADI 03h      ; Add 3 to accumulator
+HLT          ; Stop program</code></pre>
+            </div>
+            <div id="altair-basic" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-basic">10 LET A = 5
+20 LET A = A + 3
+30 END</code></pre>
+            </div>
+          </div>
+
+          <h3 class="text-xl font-medium mb-3 mt-6">
+            Peripherals and Expansion
+          </h3>
+          <p class="mb-4">
+            While the Altair 8800 initially had no keyboard or display, MITS
+            later offered expansion options:
+          </p>
+          <ul class="list-disc list-inside mb-4 pl-4 space-y-2">
+            <li>
+              <strong>Keyboard:</strong> The MITS 88-KBD keyboard was released
+              in 1976, connecting through the S-100 bus
+            </li>
+            <li>
+              <strong>Display:</strong> The MITS 88-VI terminal was an optional
+              video display unit
+            </li>
+            <li>
+              <strong>Storage:</strong> The MITS 88-ACR cassette interface
+              allowed saving programs to audio cassettes
+            </li>
+            <li>
+              <strong>Memory:</strong> The base model came with 256 bytes of
+              RAM, expandable to 64KB
+            </li>
+          </ul>
+
+          <h3 class="text-xl font-medium mb-3 mt-6">Legacy and Impact</h3>
+          <p class="mb-4">
+            The Altair 8800's influence extends far beyond its initial release.
+            It inspired the formation of the Homebrew Computer Club, where Steve
+            Wozniak and Steve Jobs first met. The machine's S-100 bus became an
+            industry standard, and its architecture influenced many early
+            personal computers. The development of Altair BASIC marked the
+            beginning of Microsoft, which would go on to become one of the
+            world's largest technology companies.
+          </p>
+          <p class="mb-4">
+            For many early computer enthusiasts, including myself, the Altair
+            8800 was their first introduction to computing. The experience of
+            programming in binary using toggle switches provided a deep
+            understanding of how computers work at their most fundamental level
+            - something that's often abstracted away in modern computing.
           </p>
         </div>
       </section>

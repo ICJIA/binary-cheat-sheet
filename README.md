@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/08ec7661-79e2-4603-a5e6-411d1fa8e857/deploy-status)](https://app.netlify.com/sites/marvelous-centaur-46864c/deploys)
+
 # Binary Cheat Sheet
 
 A comprehensive reference guide for understanding binary numbers, their conversions, and bitwise operations in computing.
