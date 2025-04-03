@@ -387,6 +387,11 @@
         margin: 1rem 0;
       }
 
+      /* Add this new CSS rule for Altair action steps */
+      .language-nasm .action-step {
+        color: #22c55e !important; /* Using Tailwind's green-500 */
+      }
+
       .altair-steps {
         background-color: #1e1e1e;
         color: #d4d4d4;
@@ -409,6 +414,32 @@
       }
 
       .altair-steps .address {
+        color: #4ec9b0;
+      }
+
+      /* Pseudo-code highlighting for Altair steps */
+      .altair-steps .pseudo-code {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-top: 1rem;
+        font-family: "Consolas", "Monaco", "Courier New", monospace;
+      }
+
+      .altair-steps .pseudo-code .comment {
+        color: #6a9955;
+      }
+
+      .altair-steps .pseudo-code .action {
+        color: #569cd6;
+      }
+
+      .altair-steps .pseudo-code .code {
+        color: #ce9178;
+      }
+
+      .altair-steps .pseudo-code .address {
         color: #4ec9b0;
       }
     </style>
@@ -679,6 +710,85 @@ print(f"{5:b}")         # Output: "101"</code></pre>
     ; We use hex or decimal and convert mentally
     ; Common hex values to remember:
     ; 0x0 = 0000, 0x1 = 0001, 0x2 = 0010, etc.</code></pre>
+              <div class="altair-step-by-step">
+                <h4>Altair Step-by-Step Instructions:</h4>
+                <ol>
+                  <li class="comment">; Initialize the system</li>
+                  <li>
+                    <span class="action-step">PRESS RESET</span> to clear all
+                    registers
+                  </li>
+
+                  <li class="comment">; Load decimal 10 into accumulator</li>
+                  <li>
+                    <span class="action-step">SET ADDRESS SWITCHES</span> to
+                    0000000000000000
+                  </li>
+                  <li><span class="action-step">PRESS EXAMINE</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00111110 (3E hex - LD A instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001010 (0A hex - value 10)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Load hex 10 into register B</li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00000110 (06 hex - LD B instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001010 (0A hex - value 10)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Load binary 10 into register C</li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001110 (0E hex - LD C instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00001010 (0A hex - value 10)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Load 5 into accumulator</li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00111110 (3E hex - LD A instruction)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+                  <li><span class="action-step">PRESS EXAMINE NEXT</span></li>
+                  <li>
+                    <span class="action-step">SET DATA SWITCHES</span> to
+                    00000101 (05 hex - value 5)
+                  </li>
+                  <li><span class="action-step">PRESS DEPOSIT</span></li>
+
+                  <li class="comment">; Run the program</li>
+                  <li><span class="action-step">PRESS RESET</span></li>
+                  <li><span class="action-step">PRESS RUN</span></li>
+
+                  <li class="comment">; After execution:</li>
+                  <li>- Accumulator (A) will contain 00000101 (5)</li>
+                  <li>- Register B will contain 00001010 (10)</li>
+                  <li>- Register C will contain 00001010 (10)</li>
+                </ol>
+              </div>
             </div>
           </div>
 
@@ -1029,75 +1139,6 @@ print(f"Is bit at pos {bit_position} set? {is_set}") # Output: True</code></pre>
 bit_set:
     ; Bit was set
     HALT          ; Stop program</code></pre>
-              <div class="altair-instructions">
-                <h4>How to Input This Code in Altair:</h4>
-                <ol>
-                  <li class="comment">; Initial Setup:</li>
-                  <li class="action-step">; Press RESET to clear the system</li>
-                  <li class="comment">; For first instruction (Load 5):</li>
-                  <li class="code-step">
-                    ; Set address switches: 0000000000000000
-                  </li>
-                  <li class="action-step">; Press EXAMINE to load address</li>
-                  <li class="code-step">
-                    ; Set data switches: 00111110 (3E hex) - MVI A instruction
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0001
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 00000101 (05 hex) - immediate value 5
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="comment">; For second instruction (Add 3):</li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0002
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 11000110 (C6 hex) - ADI instruction
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0003
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 00000011 (03 hex) - immediate value 3
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="comment">; For final instruction (Halt):</li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0004
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 01110110 (76 hex) - HLT instruction
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="comment">; To run the program:</li>
-                  <li class="code-step">
-                    ; Set address switches: 0000000000000000
-                  </li>
-                  <li class="action-step">
-                    ; Press EXAMINE to return to start
-                  </li>
-                  <li class="action-step">
-                    ; Press RUN to execute the program
-                  </li>
-                </ol>
-                <p class="comment" style="margin-top: 1rem">
-                  ; After running, the accumulator will contain 8 (5 + 3)
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -1290,75 +1331,6 @@ data:
     DB 0x34       ; Low byte
     DB 0x12       ; High byte
     ; Represents 0x1234 in memory</code></pre>
-              <div class="altair-instructions">
-                <h4>How to Input This Code in Altair:</h4>
-                <ol>
-                  <li class="comment">; Initial Setup:</li>
-                  <li class="action-step">; Press RESET to clear the system</li>
-                  <li class="comment">; For first instruction (Load 5):</li>
-                  <li class="code-step">
-                    ; Set address switches: 0000000000000000
-                  </li>
-                  <li class="action-step">; Press EXAMINE to load address</li>
-                  <li class="code-step">
-                    ; Set data switches: 00111110 (3E hex) - MVI A instruction
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0001
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 00000101 (05 hex) - immediate value 5
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="comment">; For second instruction (Add 3):</li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0002
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 11000110 (C6 hex) - ADI instruction
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0003
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 00000011 (03 hex) - immediate value 3
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="comment">; For final instruction (Halt):</li>
-                  <li class="action-step">
-                    ; Press EXAMINE NEXT for address 0004
-                  </li>
-                  <li class="code-step">
-                    ; Set data switches: 01110110 (76 hex) - HLT instruction
-                  </li>
-                  <li class="action-step">
-                    ; Press DEPOSIT to store the value
-                  </li>
-                  <li class="comment">; To run the program:</li>
-                  <li class="code-step">
-                    ; Set address switches: 0000000000000000
-                  </li>
-                  <li class="action-step">
-                    ; Press EXAMINE to return to start
-                  </li>
-                  <li class="action-step">
-                    ; Press RUN to execute the program
-                  </li>
-                </ol>
-                <p class="comment" style="margin-top: 1rem">
-                  ; After running, the accumulator will contain 8 (5 + 3)
-                </p>
-              </div>
             </div>
           </div>
         </div>
@@ -1421,6 +1393,12 @@ data:
                 >
                   Assembly (Z80)
                 </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'and-altair')"
+                >
+                  Altair (step-by-step)
+                </button>
               </div>
               <div id="and-js" class="tab-content">
                 <button
@@ -1430,7 +1408,7 @@ data:
                 ></button>
                 <pre><code class="language-javascript">let a = 5;
 let b = 3;
-console.log(a &amp; b); // Output: 1</code></pre>
+console.log(a & b); // Output: 1</code></pre>
               </div>
               <div id="and-py" class="tab-content hidden">
                 <button
@@ -1440,7 +1418,7 @@ console.log(a &amp; b); // Output: 1</code></pre>
                 ></button>
                 <pre><code class="language-python">a = 5
 b = 3
-print(a &amp; b) # Output: 1</code></pre>
+print(a & b) # Output: 1</code></pre>
               </div>
               <div id="and-z80" class="tab-content hidden">
                 <button
@@ -1458,17 +1436,43 @@ print(a &amp; b) # Output: 1</code></pre>
 
     ; Perform AND operation
     AND B         ; A = A AND B
-    ; Result: A = 00000001 (1)
+    ; Result: A = 00000001 (1)</code></pre>
+              </div>
+              <div id="and-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; AND operation (5 AND 3 = 1)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
 
-    ; Common uses:
-    ; 1. Masking bits (AND with 1 keeps bit, AND with 0 clears bit)
-    LD A, 0xFF    ; A = 11111111
-    AND 0x0F      ; Keep only lower 4 bits: A = 00001111
+; Load first value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
 
-    ; 2. Testing if bit is set
-    LD A, 0x42    ; A = 01000010
-    AND 0x02      ; Test bit 1
-    JR NZ, bit_set ; Jump if bit was set</code></pre>
+; Perform AND with second value (3)
+<span class="action-step">SET DATA SWITCHES: 10100000 (A0 hex) - ANA instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
               </div>
             </div>
           </div>
@@ -1505,6 +1509,12 @@ print(a &amp; b) # Output: 1</code></pre>
                   onclick="showTabContent(this, 'or-z80')"
                 >
                   Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'or-altair')"
+                >
+                  Altair (step-by-step)
                 </button>
               </div>
               <div id="or-js" class="tab-content">
@@ -1554,6 +1564,42 @@ print(a | b) # Output: 7</code></pre>
     LD A, 0x01    ; Flag 1 set
     OR 0x02       ; Set flag 2: A = 0x03</code></pre>
               </div>
+              <div id="or-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; OR operation (5 OR 3 = 7)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load first value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform OR with second value (3)
+<span class="action-step">SET DATA SWITCHES: 10110110 (B6 hex) - ORA instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
             </div>
           </div>
 
@@ -1593,6 +1639,12 @@ print(a | b) # Output: 7</code></pre>
                   onclick="showTabContent(this, 'not-z80')"
                 >
                   Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'not-altair')"
+                >
+                  Altair (step-by-step)
                 </button>
               </div>
               <div id="not-js" class="tab-content">
@@ -1639,6 +1691,39 @@ print(~a) # Output: -6</code></pre>
     LD A, 0x42    ; A = 01000010
     CPL           ; A = 10111101</code></pre>
               </div>
+              <div id="not-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; NOT operation (NOT 5 = -6)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform NOT operation
+<span class="action-step">SET DATA SWITCHES: 00101111 (2F hex) - CPL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
             </div>
           </div>
 
@@ -1676,6 +1761,12 @@ print(~a) # Output: -6</code></pre>
                   onclick="showTabContent(this, 'xor-z80')"
                 >
                   Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'xor-altair')"
+                >
+                  Altair (step-by-step)
                 </button>
               </div>
               <div id="xor-js" class="tab-content">
@@ -1726,6 +1817,42 @@ print(a ^ b) # Output: 6 (0b0110)</code></pre>
     XOR 0x33      ; XOR with key: A = 0x66
     XOR 0x33      ; XOR again to decrypt: A = 0x55</code></pre>
               </div>
+              <div id="xor-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; XOR operation (5 XOR 3 = 6)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load first value (5)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform XOR with second value (3)
+<span class="action-step">SET DATA SWITCHES: 10101110 (AE hex) - XRA instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
+              </div>
             </div>
           </div>
 
@@ -1764,6 +1891,12 @@ print(a ^ b) # Output: 6 (0b0110)</code></pre>
                   onclick="showTabContent(this, 'lshift-z80')"
                 >
                   Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'lshift-altair')"
+                >
+                  Altair (step-by-step)
                 </button>
               </div>
               <div id="lshift-js" class="tab-content">
@@ -1813,6 +1946,50 @@ print(a &lt;&lt; n) # Output: 12</code></pre>
     ; 2. Packing bits (using SLL)
     LD A, 0x42    ; A = 01000010
     SLL A         ; Shift left, set bit 0: A = 10000101</code></pre>
+              </div>
+              <div id="lshift-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Left shift operation (3 << 2 = 12)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load value (3)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000011 (03 hex) - value 3</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; First shift left
+<span class="action-step">SET DATA SWITCHES: 11001011 (CB hex) - Prefix for shift operations</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00100111 (27 hex) - SLA A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Second shift left
+<span class="action-step">SET DATA SWITCHES: 11001011 (CB hex) - Prefix for shift operations</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00100111 (27 hex) - SLA A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+SET ADDRESS SWITCHES: 0000000000000000
+PRESS EXAMINE
+PRESS RUN</code></pre>
               </div>
             </div>
           </div>
@@ -1869,6 +2046,12 @@ print(a &lt;&lt; n) # Output: 12</code></pre>
                   onclick="showTabContent(this, 'rshift-z80')"
                 >
                   Assembly (Z80)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'rshift-altair')"
+                >
+                  Altair (step-by-step)
                 </button>
               </div>
               <div id="rshift-js" class="tab-content">
@@ -1932,6 +2115,42 @@ print(f"Logical approx: {(neg_a &amp; mask) >> n}") # Output: 2147483645</code><
     ; 2. Extracting bits (using SRL)
     LD A, 0x42    ; A = 01000010
     SRL A         ; Shift right, clear bit 7: A = 00100001</code></pre>
+              </div>
+              <div id="rshift-altair" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-nasm">; Right shift operation (6 >> 1 = 3)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Load value (6)
+<span class="action-step">SET DATA SWITCHES: 00111110 (3E hex) - MVI A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - value 6</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Perform right shift
+<span class="action-step">SET DATA SWITCHES: 11001011 (CB hex) - Prefix for shift operations</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00101111 (2F hex) - SRA A instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+
+; Halt program
+<span class="action-step">SET DATA SWITCHES: 01110110 (76 hex) - HLT instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span></code></pre>
               </div>
             </div>
           </div>
@@ -2008,6 +2227,12 @@ print(f"Logical approx: {(neg_a &amp; mask) >> n}") # Output: 2147483645</code><
                 onclick="showTabContent(this, 'bin2dec-z80')"
               >
                 Assembly (Z80)
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2dec-altair')"
+              >
+                Altair (step-by-step)
               </button>
             </div>
             <div id="bin2dec-js" class="tab-content">
@@ -2158,26 +2383,89 @@ binary:
                   <li class="code-step">
                     ; Set data switches: 01110110 (76 hex) - HLT instruction
                   </li>
-                  <li>; Press RESET to clear the system</li>
-                  <li>; Enter the following commands:</li>
-                  <li>; 1. LD HL,0: Press 21, 00, 00, Enter</li>
-                  <li>; 2. LD DE,binary: Press 11, [address], Enter</li>
-                  <li>; 3. LD B,16: Press 06, 10, Enter</li>
-                  <li>; 4. SLA L: Press CB, 25, Enter</li>
-                  <li>; 5. RL H: Press CB, 14, Enter</li>
-                  <li>; 6. LD A,(DE): Press 1A, Enter</li>
-                  <li>; 7. SUB '0': Press D6, 30, Enter</li>
-                  <li>; 8. OR L: Press B5, Enter</li>
-                  <li>; 9. LD L,A: Press 6F, Enter</li>
-                  <li>; 10. INC DE: Press 13, Enter</li>
-                  <li>; 11. DJNZ convert_loop: Press 10, F5, Enter</li>
-                  <li>; 12. HALT: Press 76, Enter</li>
-                  <li>
-                    ; 13. Binary string: Enter ASCII "10110" followed by 00
+                  <li class="action-step">
+                    ; Press DEPOSIT to store the value
                   </li>
-                  <li>; Press RUN to execute the program</li>
+                  <li class="comment">; To run the program:</li>
+                  <li class="code-step">
+                    ; Set address switches: 0000000000000000
+                  </li>
+                  <li class="action-step">
+                    ; Press EXAMINE to return to start
+                  </li>
+                  <li class="action-step">
+                    ; Press RUN to execute the program
+                  </li>
                 </ol>
+                <p class="comment" style="margin-top: 1rem">
+                  ; After running, the accumulator will contain 8 (5 + 3)
+                </p>
               </div>
+            </div>
+            <div id="bin2dec-altair" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Binary to decimal conversion (10110 = 22)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Initialize HL to 0
+<span class="action-step">SET DATA SWITCHES: 00100001 (21 hex) - LD HL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Load binary string address
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010001 (11 hex) - LD DE instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010000 (10 hex) - binary address low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - binary address high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Set counter B to 5 (length of binary string)
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - LD B instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000101 (05 hex) - value 5</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Store binary string "10110"
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span>
+
+; After execution:
+; HL register pair will contain 22 (decimal)</code></pre>
             </div>
           </div>
         </div>
@@ -2283,6 +2571,12 @@ binary:
                 onclick="showTabContent(this, 'bin2hex-z80')"
               >
                 Assembly (Z80)
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2hex-altair')"
+              >
+                Altair (step-by-step)
               </button>
             </div>
             <div id="bin2hex-js" class="tab-content">
@@ -2427,6 +2721,86 @@ output:
                 </ol>
               </div>
             </div>
+            <div id="bin2hex-altair" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Binary to hexadecimal conversion (1101011010 = 35A)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Initialize HL to 0 (output buffer)
+<span class="action-step">SET DATA SWITCHES: 00100001 (21 hex) - LD HL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Load binary string address into DE
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010001 (11 hex) - LD DE instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010000 (10 hex) - binary address low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - binary address high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Store binary string "1101011010"
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Set counter B to 4 (process 4 bits at a time)
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - LD B instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000100 (04 hex) - value 4</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span>
+
+; After execution:
+; HL register pair will contain 22 (decimal)</code></pre>
+            </div>
           </div>
         </div>
       </section>
@@ -2513,6 +2887,12 @@ output:
                 onclick="showTabContent(this, 'bin2oct-z80')"
               >
                 Assembly (Z80)
+              </button>
+              <button
+                class="tab-button"
+                onclick="showTabContent(this, 'bin2oct-altair')"
+              >
+                Altair (step-by-step)
               </button>
             </div>
             <div id="bin2oct-js" class="tab-content">
@@ -2655,6 +3035,86 @@ output:
                 </ol>
               </div>
             </div>
+            <div id="bin2oct-altair" class="tab-content hidden">
+              <button
+                class="copy-code-button"
+                onclick="copyCodeToClipboard(this)"
+                aria-label="Copy code snippet"
+              ></button>
+              <pre><code class="language-nasm">; Binary to octal conversion (1101011010 = 1532)
+; Initial setup
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+
+; Initialize HL to 0 (output buffer)
+<span class="action-step">SET DATA SWITCHES: 00100001 (21 hex) - LD HL instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Load binary string address into DE
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010001 (11 hex) - LD DE instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00010000 (10 hex) - binary address low byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000000 (00 hex) - binary address high byte</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Store binary string "1101011010"
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110001 (31 hex) - ASCII '1'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00110000 (30 hex) - ASCII '0'</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Set counter B to 4 (process 3 bits at a time)
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000110 (06 hex) - LD B instruction</span>
+<span class="action-step">PRESS DEPOSIT</span>
+<span class="action-step">PRESS EXAMINE NEXT</span>
+<span class="action-step">SET DATA SWITCHES: 00000100 (04 hex) - value 4</span>
+<span class="action-step">PRESS DEPOSIT</span>
+
+; Run program
+<span class="action-step">SET ADDRESS SWITCHES: 0000000000000000</span>
+<span class="action-step">PRESS EXAMINE</span>
+<span class="action-step">PRESS RUN</span>
+
+; After execution:
+; HL register pair will contain 1532 (octal)</code></pre>
+            </div>
           </div>
         </div>
       </section>
@@ -2774,9 +3234,21 @@ output:
               <div class="tab-buttons">
                 <button
                   class="tab-button active"
-                  onclick="showTabContent(this, 'binary-input')"
+                  onclick="showTabContent(this, 'altair-steps')"
                 >
-                  Binary Input
+                  Altair (step-by-step)
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'javascript')"
+                >
+                  JavaScript
+                </button>
+                <button
+                  class="tab-button"
+                  onclick="showTabContent(this, 'python')"
+                >
+                  Python
                 </button>
                 <button
                   class="tab-button"
@@ -2784,62 +3256,187 @@ output:
                 >
                   Assembly (Z80)
                 </button>
-                <button
-                  class="tab-button"
-                  onclick="showTabContent(this, 'basic')"
-                >
-                  BASIC
-                </button>
               </div>
-              <div id="binary-input" class="tab-content">
-                <div class="altair-code">
-                  <pre
-                    class="line-numbers"
-                  ><code class="language-asm6502">; Binary Program Layout
-Address  Data (Binary)  Description
-0000:    00111110      Load 5 into accumulator
-0001:    00000101      The number 5
-0002:    11000110      Add 3 to accumulator
-0003:    00000011      The number 3
-0004:    01110110      Stop program</code></pre>
-                </div>
-
+              <div id="altair-steps" class="tab-content">
                 <div class="altair-steps">
-                  <h4>How to Input This Program on the Altair:</h4>
                   <pre><code class="language-plaintext">; Initial Setup
 <span class="action">RESET</span>                           ; Clear the system
 
-; Load First Instruction (MVI A,5)
+; Load First Instruction (LD HL,binary)
 <span class="address">Address 0000</span>:
+<span class="code">00100001</span> (<span class="comment">21 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Address Low Byte
+<span class="address">Address 0001</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Address High Byte
+<span class="address">Address 0002</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD DE,output Instruction
+<span class="address">Address 0003</span>:
+<span class="code">00010001</span> (<span class="comment">11 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Output Address Low Byte
+<span class="address">Address 0004</span>:
+<span class="code">00010000</span> (<span class="comment">10 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Output Address High Byte
+<span class="address">Address 0005</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD B,4 Instruction
+<span class="address">Address 0006</span>:
+<span class="code">00000110</span> (<span class="comment">06 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Counter Value
+<span class="address">Address 0007</span>:
+<span class="code">00000100</span> (<span class="comment">04 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD A,0 Instruction
+<span class="address">Address 0008</span>:
 <span class="code">00111110</span> (<span class="comment">3E hex</span>)        ; Set data switches
 <span class="action">DEPOSIT</span>                         ; Store value
 
-; Load Immediate Value 5
-<span class="address">Address 0001</span>:
-<span class="code">00000101</span> (<span class="comment">05 hex</span>)        ; Set data switches
+; Load Zero Value
+<span class="address">Address 0009</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Set data switches
 <span class="action">DEPOSIT</span>                         ; Store value
 
-; Load Add Instruction (ADI 3)
-<span class="address">Address 0002</span>:
-<span class="code">11000110</span> (<span class="comment">C6 hex</span>)        ; Set data switches
+; Load LD C,3 Instruction
+<span class="address">Address 000A</span>:
+<span class="code">00001110</span> (<span class="comment">0E hex</span>)        ; Set data switches
 <span class="action">DEPOSIT</span>                         ; Store value
 
-; Load Immediate Value 3
-<span class="address">Address 0003</span>:
+; Load Bit Counter
+<span class="address">Address 000B</span>:
 <span class="code">00000011</span> (<span class="comment">03 hex</span>)        ; Set data switches
 <span class="action">DEPOSIT</span>                         ; Store value
 
-; Load Halt Instruction
-<span class="address">Address 0004</span>:
-<span class="code">01110110</span> (<span class="comment">76 hex</span>)        ; Set data switches
+; Load SLA A Instruction
+<span class="address">Address 000C</span>:
+<span class="code">11001011</span> (<span class="comment">CB hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Shift Opcode
+<span class="address">Address 000D</span>:
+<span class="code">00100111</span> (<span class="comment">27 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load LD R,(HL) Instruction
+<span class="address">Address 000E</span>:
+<span class="code">01001110</span> (<span class="comment">4E hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load SUB '0' Instruction
+<span class="address">Address 000F</span>:
+<span class="code">11010110</span> (<span class="comment">D6 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load ASCII '0' Value
+<span class="address">Address 0010</span>:
+<span class="code">00110000</span> (<span class="comment">30 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load OR A Instruction
+<span class="address">Address 0011</span>:
+<span class="code">10110111</span> (<span class="comment">B7 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load INC HL Instruction
+<span class="address">Address 0012</span>:
+<span class="code">00100011</span> (<span class="comment">23 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load DEC C Instruction
+<span class="address">Address 0013</span>:
+<span class="code">00001101</span> (<span class="comment">0D hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load JR NZ,bit_loop Instruction
+<span class="address">Address 0014</span>:
+<span class="code">00100000</span> (<span class="comment">20 hex</span>)        ; Set data switches
+<span class="action">DEPOSIT</span>                         ; Store value
+
+; Load Jump Offset
+<span class="address">Address 0015</span>:
+<span class="code">11110101</span> (<span class="comment">F5 hex</span>)        ; Set data switches
+<span class="code">00110001</span> (<span class="comment">31 hex</span>)        ; '1'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0016</span>:
+<span class="code">00110000</span> (<span class="comment">30 hex</span>)        ; '0'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0017</span>:
+<span class="code">00110001</span> (<span class="comment">31 hex</span>)        ; '1'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0018</span>:
+<span class="code">00110001</span> (<span class="comment">31 hex</span>)        ; '1'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 0019</span>:
+<span class="code">00110000</span> (<span class="comment">30 hex</span>)        ; '0'
+<span class="action">DEPOSIT</span>                         ; Store value
+<span class="address">Address 001A</span>:
+<span class="code">00000000</span> (<span class="comment">00 hex</span>)        ; Null terminator
 <span class="action">DEPOSIT</span>                         ; Store value
 
 ; Execute Program
 <span class="action">EXAMINE 0000</span>                    ; Return to start
 <span class="action">RUN</span>                            ; Execute program
 
-<span class="comment">; Result: Accumulator will contain 8 (5 + 3)</span></code></pre>
+<span class="comment">; Result: HL register pair will contain the decimal value of the binary string</span></code></pre>
                 </div>
+              </div>
+              <div id="javascript" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-javascript">// JavaScript: Representing numbers and basic conversion
+let decimalNum = 10;
+let binaryLiteral = 0b1010; // Binary literal prefix 0b
+let octalLiteral = 0o12;   // Octal literal prefix 0o
+let hexLiteral = 0xA;     // Hex literal prefix 0x
+
+console.log(decimalNum);        // Output: 10
+console.log(binaryLiteral);     // Output: 10
+console.log(octalLiteral);      // Output: 10
+console.log(hexLiteral);        // Output: 10
+
+// Convert decimal to binary string
+console.log(decimalNum.toString(2)); // Output: "1010"
+console.log((5).toString(2));        // Output: "101"</code></pre>
+              </div>
+              <div id="python" class="tab-content hidden">
+                <button
+                  class="copy-code-button"
+                  onclick="copyCodeToClipboard(this)"
+                  aria-label="Copy code snippet"
+                ></button>
+                <pre><code class="language-python"># Python: Representing numbers and basic conversion
+decimal_num = 10
+binary_literal = 0b1010 # Binary literal prefix 0b
+octal_literal = 0o12   # Octal literal prefix 0o
+hex_literal = 0xA     # Hex literal prefix 0x
+
+print(decimal_num)      # Output: 10
+print(binary_literal)   # Output: 10
+print(octal_literal)    # Output: 10
+print(hex_literal)      # Output: 10
+
+# Convert decimal to binary string
+print(bin(decimal_num)) # Output: "0b1010" (includes prefix)
+print(f"{decimal_num:b}") # Output: "1010" (using f-string formatting)
+print(f"{5:b}")         # Output: "101"</code></pre>
               </div>
               <div id="assembly" class="tab-content hidden">
                 <pre
@@ -2848,15 +3445,6 @@ Address  Data (Binary)  Description
   MVI A,5    ; Load 5 into accumulator
   ADI 03h      ; Add 3 to accumulator
   HLT          ; Stop program</code></pre>
-              </div>
-              <div id="basic" class="tab-content hidden">
-                <pre
-                  class="line-numbers"
-                ><code class="language-basic">10 LET A = 5
-20 LET B = 3
-30 LET C = A + B
-40 PRINT C
-50 END</code></pre>
               </div>
             </div>
 
@@ -3134,6 +3722,11 @@ Address  Data (Binary)  Description
       // Initialize copy buttons
       document.querySelectorAll(".copy-code-button").forEach((button) => {
         button.innerHTML = copyIconSVG;
+      });
+
+      // Hide altair-instructions sections
+      document.querySelectorAll(".altair-instructions").forEach((element) => {
+        element.style.display = "none";
       });
     </script>
   </body>
