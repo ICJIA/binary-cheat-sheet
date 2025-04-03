@@ -4,6 +4,10 @@
 
 A comprehensive reference guide for understanding binary numbers, their conversions, and bitwise operations in computing.
 
+## Demo
+
+https://binary-cheat.netlify.app/
+
 ## Overview
 
 This cheat sheet serves as a personal reference for understanding binary concepts in computing. It covers fundamental topics including:
