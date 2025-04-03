@@ -32,7 +32,7 @@ This project provides a detailed exploration of binary numbers, from basic conce
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/binary-cheat-sheet.git
+git clone https://github.com/icjia/binary-cheat-sheet.git
 ```
 
 2. Open `index.html` in your browser or serve it using a local server:
